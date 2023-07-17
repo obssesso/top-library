@@ -22,6 +22,15 @@ textarea,
 select {
   font: inherit;
 }
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
 /* Custom properties */
 
 :root {
@@ -93,6 +102,10 @@ select {
 /* Colors */
 .bg-color {
   background-color: hsl(var(--clr-background) / 5%);
+}
+
+.bg-color-main {
+  background-color: hsl(var(--clr-main-accent));
 }
 
 .clr-main {
@@ -207,6 +220,10 @@ select {
   margin-bottom: var(--mrgn-bottom-900);
 }
 
+.width-100 {
+  width: 100%;
+}
+
 /* Layouting */
 
 .grid {
@@ -215,6 +232,14 @@ select {
 
 .pi-center {
   place-items: center;
+}
+
+.as-center {
+  align-self: center;
+}
+
+.js-center {
+  justify-self: center;
 }
 
 .ac-center {
@@ -234,15 +259,30 @@ select {
   justify-content: center;
 }
 
+.jc-sb {
+  justify-content: space-between;
+}
+
 .ai-center {
   align-items: center;
 }
 
+.ai-start {
+  align-items: start;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
 /* ----------------------------- Components ---------------------- */
 
+.svg-h1 {
+  /*   transform: scale(0.1); */
+}
 .wrapper {
   margin-inline: auto;
-  max-width: 90%;
+  max-width: min(90%, 60rem);
   padding-block: 2rem;
 }
 
@@ -282,4 +322,31 @@ select {
   padding: 0.1rem 0.7rem;
   border-radius: 5px;
   --gap: 1rem;
+}
+
+.book {
+  border-bottom: 1px solid hsl(var(--clr-main-accent) / 0.2);
+}
+
+.book > img {
+  object-fit: cover;
+  width: 7.5rem;
+}
+
+.book-status {
+  display: flex;
+  width: min(80%, 15rem);
+  color: #fff;
+  border-radius: 5px;
+  padding-left: 1.2rem;
+  padding-block: 0.3rem;
+  border: 0;
+}
+
+.book-status svg {
+  fill: #fff;
+}
+
+.rating {
+  --gap: 0.1rem;
 }
