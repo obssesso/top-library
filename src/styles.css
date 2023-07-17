@@ -1,0 +1,285 @@
+/* Reset */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /*   border: 1px solid red; */
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 400;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+/* Custom properties */
+
+:root {
+  --clr-main-accent: 75 10% 40%;
+  --clr-paragraph-grey: 0 0% 44%;
+  --clr-background: 104 10% 10%;
+
+  --ff-main: "Indie Flower", cursive;
+  --ff-accent: "Courier Prime", monospace;
+
+  --fs-h1: clamp(
+    1.125rem,
+    0.5150602409638554rem + 2.710843373493976vw,
+    2.25rem
+  );
+  --fs-paragraph: 1.125rem;
+  --fs-book-title: clamp(
+    1.625rem,
+    1.286144578313253rem + 1.5060240963855422vw,
+    2.25rem
+  );
+  --fs-author: clamp(
+    1.1125rem,
+    0.9024096385542169rem + 0.9337349397590362vw,
+    1.5rem
+  );
+  --fs-book-status: clamp(
+    0.875rem,
+    0.7394578313253012rem + 0.6024096385542169vw,
+    1.125rem
+  );
+  --fs-filter-card: clamp(
+    0.75rem,
+    0.6144578313253012rem + 0.6024096385542169vw,
+    1rem
+  );
+
+  --pb-bottom-100: 0.125rem;
+  --pb-bottom-200: 0.25rem;
+  --pb-bottom-300: 0.33rem;
+  --pb-bottom-400: 0.6rem;
+  --pb-bottom-500: 1rem;
+  --pb-bottom-600: 1.5rem;
+  --pb-bottom-700: 2rem;
+  --pb-bottom-800: 2.33rem;
+
+  --mgrn-bottom-100: 0.125rem;
+  --mrgn-bottom-200: 0.25rem;
+  --mrgn-bottom-300: 0.33rem;
+  --mrgn-bottom-400: 0.6rem;
+  --mrgn-bottom-500: 1rem;
+  --mrgn-bottom-600: 1.5rem;
+  --mrgn-bottom-700: 2rem;
+  --mrgn-bottom-800: 2.33rem;
+}
+
+/*------------------- Utility ----------------------------*/
+
+/* Font Families */
+
+.ff-main {
+  font-family: var(--ff-main);
+}
+
+.ff-accent {
+  font-family: var(--ff-accent);
+}
+
+/* Colors */
+.bg-color {
+  background-color: hsl(var(--clr-background) / 5%);
+}
+
+.clr-main {
+  color: hsl(var(--clr-main-accent));
+}
+
+.clr-paragraph {
+  color: hsl(--clr-paragraph-grey);
+}
+
+/* Font sizes */
+.fs-h1 {
+  font-size: var(--fs-h1);
+}
+
+.fs-paragraph {
+  font-size: var(--fs-paragraph);
+}
+
+.fs-book-title {
+  font-size: var(--fs-book-title);
+}
+
+.fs-author {
+  font-size: var(--fs-author);
+}
+
+.fs-book-status {
+  font-size: var(--fs-book-status);
+}
+
+.fs-filter-card {
+  font-size: var(--fs-filter-card);
+}
+/* Formatting */
+
+.ta-center {
+  text-align: center;
+}
+
+/* Spacing */
+
+.pb-bottom-100 {
+  padding-bottom: var(--pb-bottom-100);
+}
+
+.pb-bottom-200 {
+  padding-bottom: var(--pb-bottom-200);
+}
+
+.pb-bottom-300 {
+  padding-bottom: var(--pb-bottom-300);
+}
+
+.pb-bottom-400 {
+  padding-bottom: var(--pb-bottom-400);
+}
+
+.pb-bottom-500 {
+  padding-bottom: var(--pb-bottom-500);
+}
+
+.pb-bottom-600 {
+  padding-bottom: var(--pb-bottom-600);
+}
+
+.pb-bottom-700 {
+  padding-bottom: var(--pb-bottom-700);
+}
+
+.pb-bottom-800 {
+  padding-bottom: var(--pb-bottom-800);
+}
+
+.pb-bottom-900 {
+  padding-bottom: var(--pb-bottom-900);
+}
+
+.mrgn-bottom-100 {
+  margin-bottom: var(--mrgn-bottom-100);
+}
+
+.mrgn-bottom-200 {
+  margin-bottom: var(--mrgn-bottom-200);
+}
+
+.mrgn-bottom-300 {
+  margin-bottom: var(--mrgn-bottom-300);
+}
+
+.mrgn-bottom-400 {
+  margin-bottom: var(--mrgn-bottom-400);
+}
+
+.mrgn-bottom-500 {
+  margin-bottom: var(--mrgn-bottom-500);
+}
+
+.mrgn-bottom-600 {
+  margin-bottom: var(--mrgn-bottom-600);
+}
+
+.mrgn-bottom-700 {
+  margin-bottom: var(--mrgn-bottom-700);
+}
+
+.mrgn-bottom-800 {
+  margin-bottom: var(--mrgn-bottom-800);
+}
+
+.mrgn-bottom-900 {
+  margin-bottom: var(--mrgn-bottom-900);
+}
+
+/* Layouting */
+
+.grid {
+  display: grid;
+}
+
+.pi-center {
+  place-items: center;
+}
+
+.ac-center {
+  align-content: center;
+}
+
+.ji-center {
+  justify-items: center;
+}
+
+.flex {
+  display: flex;
+  gap: var(--gap, 1rem);
+}
+
+.jc-center {
+  justify-content: center;
+}
+
+.ai-center {
+  align-items: center;
+}
+
+/* ----------------------------- Components ---------------------- */
+
+.wrapper {
+  margin-inline: auto;
+  max-width: 90%;
+  padding-block: 2rem;
+}
+
+.list-search {
+  background-color: #fff;
+  width: min(80vw, 25rem);
+  border-radius: 5px;
+  border: 2px solid hsl(var(--clr-main-accent));
+  padding: 0.1rem;
+}
+
+.list-search-input {
+  appearance: none;
+  border: 0;
+  outline: none;
+  width: 100%;
+  padding-block: 0.5rem;
+  color: hsl(var(--clr-main-accent));
+}
+
+.list-search svg {
+  transform: scale(0.8);
+}
+
+.list-search-input::placeholder {
+  padding-inline: 2rem;
+  color: hsl(var(--clr-main-accent));
+}
+
+.filter-section {
+  --gap: 0.4rem;
+  color: #fff;
+}
+
+.filter-section > * {
+  background-color: hsl(var(--clr-main-accent));
+  padding: 0.1rem 0.7rem;
+  border-radius: 5px;
+  --gap: 1rem;
+}
