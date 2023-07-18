@@ -255,6 +255,10 @@ svg {
   gap: var(--gap, 1rem);
 }
 
+.jc-start {
+  justify-content: start;
+}
+
 .jc-center {
   justify-content: center;
 }
@@ -277,9 +281,6 @@ svg {
 
 /* ----------------------------- Components ---------------------- */
 
-.svg-h1 {
-  /*   transform: scale(0.1); */
-}
 .wrapper {
   margin-inline: auto;
   max-width: min(90%, 60rem);
@@ -349,4 +350,9 @@ svg {
 
 .rating {
   --gap: 0.1rem;
+  flex-direction: row-reverse;
+}
+
+.rating svg:hover ~ svg {
+  color: black;
 }
