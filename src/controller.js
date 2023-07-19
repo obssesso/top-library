@@ -1,4 +1,5 @@
 import bookModelFactory from "./bookModel.js";
+import addBookModalComponentFactory from "./addBookModal.js";
 
 export default function appFactory() {
   let currentRating;
@@ -7,13 +8,15 @@ export default function appFactory() {
     $: {
       ratingStars: document.querySelectorAll("[data-star-number]"),
       bookList: document.querySelector(".books"),
+      addBook: document.querySelector('[data-global-action="add"]'),
+      wrapper: document.querySelector('[data-global="wrapper"]'),
     },
   };
 
   async function initApp() {
     try {
       bookModel = await bookModelFactory();
-      fullRenderView();
+      /*       fullRenderView(); */
       bookModel.addEventListener("update", fullRenderView);
       initEventListeners();
     } catch (error) {}
@@ -103,8 +106,30 @@ export default function appFactory() {
   }
 
   function initEventListeners() {
-    initRatingStarEvents();
+    /*     initRatingStarEvents();
+    bindBookCardEvents(); */
+    initGlobalEvents();
   }
+
+  function initGlobalEvents() {
+    App.$.addBook.addEventListener("click", addBookModal);
+  }
+
+  function addBookModal() {
+    const formWrapper = addBookModalComponentFactory().createBookModalDOMNode();
+    const firstChild = App.$.wrapper.firstChild;
+    App.$.wrapper.insertBefore(formWrapper, firstChild);
+  }
+
+  function bindBookCardEvents() {
+    bookEvent("click", "[data-star-number]", onRatingStarInteraction);
+  }
+
+  function bookEvent(event, selector, handler) {
+    delegateEvent(App.$.bookList);
+  }
+
+  function delegateEvent(listener, event, selector, handler) {}
 
   function initRatingStarEvents() {
     document.querySelectorAll("[data-star-number]").forEach((ratingStar) => {
