@@ -18,6 +18,7 @@ h6 {
 
 input,
 button,
+label,
 textarea,
 select {
   font: inherit;
@@ -114,6 +115,10 @@ svg {
 
 .clr-paragraph {
   color: hsl(--clr-paragraph-grey);
+}
+
+.clr-white {
+  color: white;
 }
 
 /* Font sizes */
@@ -279,12 +284,31 @@ svg {
   display: inline-block;
 }
 
+.pos-rel {
+  position: relative;
+}
+
+.pos-abs {
+  position: absolute;
+}
+
+.inset0 {
+  inset: 0;
+}
+
+/* Modals, Popups */
+.darken {
+  opacity: 0.1;
+  background-color: hsl(0 0% 0% / 0.1);
+}
+
 /* ----------------------------- Components ---------------------- */
 
 .wrapper {
   margin-inline: auto;
   max-width: min(90%, 60rem);
   padding-block: 2rem;
+  min-height: 100svh;
 }
 
 .list-search {
