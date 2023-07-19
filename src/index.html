@@ -13,9 +13,33 @@
 </style>
 <body class="bg-color ff-main">
 
-    <div class="wrapper">
 
-        <header class="grid pi-center mrgn-bottom-800">
+    <div data-global="wrapper" class="wrapper pos-rel">
+<!--         <div class="pos-abs inset0 grid pi-center form-wrapper">
+            <form class="pos-rel" action="">
+                <button class="close-modal pos-abs clr-white" style="right: 0; top:0;">X</button>
+                <h2 class="clr-white mrgn-bottom-700">Add a new book to your list</h2>
+                <label>
+                    <p>Book Title</p>
+                    <input type="text">
+                </label>
+                <label>
+                    <p>Author</p>
+                    <input type="text">
+                </label>
+                <label>
+                    <p>Status</p>
+                    <input type="text">
+                </label>
+                <label>
+                    <p>Rating</p>
+                    <input type="text">
+                </label>
+                <p style="justify-self: end; padding-top: 1rem;"><button>Add to list</button></p>
+            </form>
+        </div>
+
+ -->        <header class="grid pi-center mrgn-bottom-800">
             <!--             <h1 class="ff-accent ta-center fs-h1 pb-bottom-500">My Book List</h1> -->
             <h1 class="svg-h1 pb-bottom-500">
                 <svg width="100px" height="100px" viewBox="0 -0.46 321.395 321.395" xmlns="http://www.w3.org/2000/svg">
@@ -196,180 +220,14 @@
         </header>
 
         <main class="grid">
-            <svg class="as-center js-center mrgn-bottom-800" xmlns="http://www.w3.org/2000/svg" height="48"
-                viewBox="0 -960 960 960" width="48">
+            <svg data-global-action="add" class="as-center js-center mrgn-bottom-800" xmlns="http://www.w3.org/2000/svg"
+                height="48" viewBox="0 -960 960 960" width="48">
                 <path
                     d="M453-280h60v-166h167v-60H513v-174h-60v174H280v60h173v166Zm27.266 200q-82.734 0-155.5-31.5t-127.266-86q-54.5-54.5-86-127.341Q80-397.681 80-480.5q0-82.819 31.5-155.659Q143-709 197.5-763t127.341-85.5Q397.681-880 480.5-880q82.819 0 155.659 31.5Q709-817 763-763t85.5 127Q880-563 880-480.266q0 82.734-31.5 155.5T763-197.684q-54 54.316-127 86Q563-80 480.266-80Zm.234-60Q622-140 721-239.5t99-241Q820-622 721.188-721 622.375-820 480-820q-141 0-240.5 98.812Q140-622.375 140-480q0 141 99.5 240.5t241 99.5Zm-.5-340Z" />
             </svg>
 
-            <div class="book flex ai-start pb-bottom-700 mrgn-bottom-700">
-                <img src="./assets/1984_Orwell_Cover.jpg" alt="">
-                <div class="width-100">
-                    <div class="flex ai-center jc-sb">
-                        <span class="fs-book-title">1984</span>
-                        <svg class="edit-button" xmlns="http://www.w3.org/2000/svg" height="22" viewBox="0 -960 960 960"
-                            width="22">
-                            <path
-                                d="M180-180h44l443-443-44-44-443 443v44Zm614-486L666-794l42-42q17-17 42-17t42 17l44 44q17 17 17 42t-17 42l-42 42Zm-42 42L248-120H120v-128l504-504 128 128Zm-107-21-22-22 44 44-22-22Z" />
-                        </svg>
-                    </div>
-                    <div class="fs-book-author mrgn-bottom-500">by George Orwell </div>
-                    <button class="book-status mrgn-bottom-500 bg-color-main flex ai-center jc-sb">
-                        <span>Read</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="#000000" width="22px" height="22px"
-                            viewBox="0 0 24 24">
-                            <path d="M7 10l5 5 5-5z" />
-                        </svg>
-                    </button>
-                    <div>
-                        <span>Your rating</span>
-                        <div class="flex rating ai-start jc-start">
-                            <svg data-star-number=5 width="17px" height="17px" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M14.65 8.93274L12.4852 4.30901C12.2923 3.89699 11.7077 3.897 11.5148 4.30902L9.35002 8.93274L4.45559 9.68243C4.02435 9.74848 3.84827 10.2758 4.15292 10.5888L7.71225 14.2461L6.87774 19.3749C6.80571 19.8176 7.27445 20.1487 7.66601 19.9317L12 17.5299L16.334 19.9317C16.7256 20.1487 17.1943 19.8176 17.1223 19.3749L16.2878 14.2461L19.8471 10.5888C20.1517 10.2758 19.9756 9.74848 19.5444 9.68243L14.65 8.93274Z"
-                                    stroke="#464455" stroke-linecap="round" stroke-linejoin="round" />
-                            </svg>
-                            <svg data-star-number=4 width="17px" height="17px" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M14.65 8.93274L12.4852 4.30901C12.2923 3.89699 11.7077 3.897 11.5148 4.30902L9.35002 8.93274L4.45559 9.68243C4.02435 9.74848 3.84827 10.2758 4.15292 10.5888L7.71225 14.2461L6.87774 19.3749C6.80571 19.8176 7.27445 20.1487 7.66601 19.9317L12 17.5299L16.334 19.9317C16.7256 20.1487 17.1943 19.8176 17.1223 19.3749L16.2878 14.2461L19.8471 10.5888C20.1517 10.2758 19.9756 9.74848 19.5444 9.68243L14.65 8.93274Z"
-                                    stroke="#464455" stroke-linecap="round" stroke-linejoin="round" />
-                            </svg>
-                            <svg data-star-number=3 width="17px" height="17px" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M14.65 8.93274L12.4852 4.30901C12.2923 3.89699 11.7077 3.897 11.5148 4.30902L9.35002 8.93274L4.45559 9.68243C4.02435 9.74848 3.84827 10.2758 4.15292 10.5888L7.71225 14.2461L6.87774 19.3749C6.80571 19.8176 7.27445 20.1487 7.66601 19.9317L12 17.5299L16.334 19.9317C16.7256 20.1487 17.1943 19.8176 17.1223 19.3749L16.2878 14.2461L19.8471 10.5888C20.1517 10.2758 19.9756 9.74848 19.5444 9.68243L14.65 8.93274Z"
-                                    stroke="#464455" stroke-linecap="round" stroke-linejoin="round" />
-                            </svg>
-                            <svg data-star-number=2 width="17px" height="17px" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M14.65 8.93274L12.4852 4.30901C12.2923 3.89699 11.7077 3.897 11.5148 4.30902L9.35002 8.93274L4.45559 9.68243C4.02435 9.74848 3.84827 10.2758 4.15292 10.5888L7.71225 14.2461L6.87774 19.3749C6.80571 19.8176 7.27445 20.1487 7.66601 19.9317L12 17.5299L16.334 19.9317C16.7256 20.1487 17.1943 19.8176 17.1223 19.3749L16.2878 14.2461L19.8471 10.5888C20.1517 10.2758 19.9756 9.74848 19.5444 9.68243L14.65 8.93274Z"
-                                    stroke="#464455" stroke-linecap="round" stroke-linejoin="round" />
-                            </svg>
-                            <svg data-star-number=1 width="17px" height="17px" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M14.65 8.93274L12.4852 4.30901C12.2923 3.89699 11.7077 3.897 11.5148 4.30902L9.35002 8.93274L4.45559 9.68243C4.02435 9.74848 3.84827 10.2758 4.15292 10.5888L7.71225 14.2461L6.87774 19.3749C6.80571 19.8176 7.27445 20.1487 7.66601 19.9317L12 17.5299L16.334 19.9317C16.7256 20.1487 17.1943 19.8176 17.1223 19.3749L16.2878 14.2461L19.8471 10.5888C20.1517 10.2758 19.9756 9.74848 19.5444 9.68243L14.65 8.93274Z"
-                                    stroke="#464455" stroke-linecap="round" stroke-linejoin="round" />
-                            </svg>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="book flex ai-start pb-bottom-700 mrgn-bottom-700">
-                <img src="./assets/The_Great_Gatsby.jpg" alt="">
-                <div class="width-100">
-                    <div class="flex ai-center jc-sb">
-                        <span class="fs-book-title">The Great Gatsby</span>
-                        <svg class="edit-button" xmlns="http://www.w3.org/2000/svg" height="22" viewBox="0 -960 960 960"
-                            width="22">
-                            <path
-                                d="M180-180h44l443-443-44-44-443 443v44Zm614-486L666-794l42-42q17-17 42-17t42 17l44 44q17 17 17 42t-17 42l-42 42Zm-42 42L248-120H120v-128l504-504 128 128Zm-107-21-22-22 44 44-22-22Z" />
-                        </svg>
-                    </div>
-                    <div class="fs-book-author mrgn-bottom-500">by F. Scott Fitzgerald </div>
-                    <button class="book-status mrgn-bottom-500 bg-color-main flex ai-center jc-sb">
-                        <span>Read</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="#000000" width="22px" height="22px"
-                            viewBox="0 0 24 24">
-                            <path d="M7 10l5 5 5-5z" />
-                        </svg>
-                    </button>
-                    <div class="rating">
-                        <span>Your rating</span>
-                        <div class="flex">
-                            <svg width="17px" height="17px" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M14.65 8.93274L12.4852 4.30901C12.2923 3.89699 11.7077 3.897 11.5148 4.30902L9.35002 8.93274L4.45559 9.68243C4.02435 9.74848 3.84827 10.2758 4.15292 10.5888L7.71225 14.2461L6.87774 19.3749C6.80571 19.8176 7.27445 20.1487 7.66601 19.9317L12 17.5299L16.334 19.9317C16.7256 20.1487 17.1943 19.8176 17.1223 19.3749L16.2878 14.2461L19.8471 10.5888C20.1517 10.2758 19.9756 9.74848 19.5444 9.68243L14.65 8.93274Z"
-                                    stroke="#464455" stroke-linecap="round" stroke-linejoin="round" />
-                            </svg>
-                            <svg width="17px" height="17px" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M14.65 8.93274L12.4852 4.30901C12.2923 3.89699 11.7077 3.897 11.5148 4.30902L9.35002 8.93274L4.45559 9.68243C4.02435 9.74848 3.84827 10.2758 4.15292 10.5888L7.71225 14.2461L6.87774 19.3749C6.80571 19.8176 7.27445 20.1487 7.66601 19.9317L12 17.5299L16.334 19.9317C16.7256 20.1487 17.1943 19.8176 17.1223 19.3749L16.2878 14.2461L19.8471 10.5888C20.1517 10.2758 19.9756 9.74848 19.5444 9.68243L14.65 8.93274Z"
-                                    stroke="#464455" stroke-linecap="round" stroke-linejoin="round" />
-                            </svg>
-                            <svg width="17px" height="17px" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M14.65 8.93274L12.4852 4.30901C12.2923 3.89699 11.7077 3.897 11.5148 4.30902L9.35002 8.93274L4.45559 9.68243C4.02435 9.74848 3.84827 10.2758 4.15292 10.5888L7.71225 14.2461L6.87774 19.3749C6.80571 19.8176 7.27445 20.1487 7.66601 19.9317L12 17.5299L16.334 19.9317C16.7256 20.1487 17.1943 19.8176 17.1223 19.3749L16.2878 14.2461L19.8471 10.5888C20.1517 10.2758 19.9756 9.74848 19.5444 9.68243L14.65 8.93274Z"
-                                    stroke="#464455" stroke-linecap="round" stroke-linejoin="round" />
-                            </svg>
-                            <svg width="17px" height="17px" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M14.65 8.93274L12.4852 4.30901C12.2923 3.89699 11.7077 3.897 11.5148 4.30902L9.35002 8.93274L4.45559 9.68243C4.02435 9.74848 3.84827 10.2758 4.15292 10.5888L7.71225 14.2461L6.87774 19.3749C6.80571 19.8176 7.27445 20.1487 7.66601 19.9317L12 17.5299L16.334 19.9317C16.7256 20.1487 17.1943 19.8176 17.1223 19.3749L16.2878 14.2461L19.8471 10.5888C20.1517 10.2758 19.9756 9.74848 19.5444 9.68243L14.65 8.93274Z"
-                                    stroke="#464455" stroke-linecap="round" stroke-linejoin="round" />
-                            </svg>
-                            <svg width="17px" height="17px" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M14.65 8.93274L12.4852 4.30901C12.2923 3.89699 11.7077 3.897 11.5148 4.30902L9.35002 8.93274L4.45559 9.68243C4.02435 9.74848 3.84827 10.2758 4.15292 10.5888L7.71225 14.2461L6.87774 19.3749C6.80571 19.8176 7.27445 20.1487 7.66601 19.9317L12 17.5299L16.334 19.9317C16.7256 20.1487 17.1943 19.8176 17.1223 19.3749L16.2878 14.2461L19.8471 10.5888C20.1517 10.2758 19.9756 9.74848 19.5444 9.68243L14.65 8.93274Z"
-                                    stroke="#464455" stroke-linecap="round" stroke-linejoin="round" />
-                            </svg>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="book flex ai-start pb-bottom-700 mrgn-bottom-700">
-                <img src="./assets/Jane_eyre.jpg" alt="">
-                <div class="width-100">
-                    <div class="flex ai-center jc-sb">
-                        <span class="fs-book-title">Jane Eyre</span>
-                        <svg class="edit-button" xmlns="http://www.w3.org/2000/svg" height="22" viewBox="0 -960 960 960"
-                            width="22">
-                            <path
-                                d="M180-180h44l443-443-44-44-443 443v44Zm614-486L666-794l42-42q17-17 42-17t42 17l44 44q17 17 17 42t-17 42l-42 42Zm-42 42L248-120H120v-128l504-504 128 128Zm-107-21-22-22 44 44-22-22Z" />
-                        </svg>
-                    </div>
-                    <div class="fs-book-author mrgn-bottom-500">Charlotte Bronte</div>
-                    <button class="book-status mrgn-bottom-500 bg-color-main flex ai-center jc-sb">
-                        <span>Read</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="#000000" width="22px" height="22px"
-                            viewBox="0 0 24 24">
-                            <path d="M7 10l5 5 5-5z" />
-                        </svg>
-                    </button>
-                    <div class="rating">
-                        <span>Your rating</span>
-                        <div class="flex">
-                            <svg width="17px" height="17px" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M14.65 8.93274L12.4852 4.30901C12.2923 3.89699 11.7077 3.897 11.5148 4.30902L9.35002 8.93274L4.45559 9.68243C4.02435 9.74848 3.84827 10.2758 4.15292 10.5888L7.71225 14.2461L6.87774 19.3749C6.80571 19.8176 7.27445 20.1487 7.66601 19.9317L12 17.5299L16.334 19.9317C16.7256 20.1487 17.1943 19.8176 17.1223 19.3749L16.2878 14.2461L19.8471 10.5888C20.1517 10.2758 19.9756 9.74848 19.5444 9.68243L14.65 8.93274Z"
-                                    stroke="#464455" stroke-linecap="round" stroke-linejoin="round" />
-                            </svg>
-                            <svg width="17px" height="17px" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M14.65 8.93274L12.4852 4.30901C12.2923 3.89699 11.7077 3.897 11.5148 4.30902L9.35002 8.93274L4.45559 9.68243C4.02435 9.74848 3.84827 10.2758 4.15292 10.5888L7.71225 14.2461L6.87774 19.3749C6.80571 19.8176 7.27445 20.1487 7.66601 19.9317L12 17.5299L16.334 19.9317C16.7256 20.1487 17.1943 19.8176 17.1223 19.3749L16.2878 14.2461L19.8471 10.5888C20.1517 10.2758 19.9756 9.74848 19.5444 9.68243L14.65 8.93274Z"
-                                    stroke="#464455" stroke-linecap="round" stroke-linejoin="round" />
-                            </svg>
-                            <svg width="17px" height="17px" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M14.65 8.93274L12.4852 4.30901C12.2923 3.89699 11.7077 3.897 11.5148 4.30902L9.35002 8.93274L4.45559 9.68243C4.02435 9.74848 3.84827 10.2758 4.15292 10.5888L7.71225 14.2461L6.87774 19.3749C6.80571 19.8176 7.27445 20.1487 7.66601 19.9317L12 17.5299L16.334 19.9317C16.7256 20.1487 17.1943 19.8176 17.1223 19.3749L16.2878 14.2461L19.8471 10.5888C20.1517 10.2758 19.9756 9.74848 19.5444 9.68243L14.65 8.93274Z"
-                                    stroke="#464455" stroke-linecap="round" stroke-linejoin="round" />
-                            </svg>
-                            <svg width="17px" height="17px" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M14.65 8.93274L12.4852 4.30901C12.2923 3.89699 11.7077 3.897 11.5148 4.30902L9.35002 8.93274L4.45559 9.68243C4.02435 9.74848 3.84827 10.2758 4.15292 10.5888L7.71225 14.2461L6.87774 19.3749C6.80571 19.8176 7.27445 20.1487 7.66601 19.9317L12 17.5299L16.334 19.9317C16.7256 20.1487 17.1943 19.8176 17.1223 19.3749L16.2878 14.2461L19.8471 10.5888C20.1517 10.2758 19.9756 9.74848 19.5444 9.68243L14.65 8.93274Z"
-                                    stroke="#464455" stroke-linecap="round" stroke-linejoin="round" />
-                            </svg>
-                            <svg width="17px" height="17px" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M14.65 8.93274L12.4852 4.30901C12.2923 3.89699 11.7077 3.897 11.5148 4.30902L9.35002 8.93274L4.45559 9.68243C4.02435 9.74848 3.84827 10.2758 4.15292 10.5888L7.71225 14.2461L6.87774 19.3749C6.80571 19.8176 7.27445 20.1487 7.66601 19.9317L12 17.5299L16.334 19.9317C16.7256 20.1487 17.1943 19.8176 17.1223 19.3749L16.2878 14.2461L19.8471 10.5888C20.1517 10.2758 19.9756 9.74848 19.5444 9.68243L14.65 8.93274Z"
-                                    stroke="#464455" stroke-linecap="round" stroke-linejoin="round" />
-                            </svg>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <ul class="books">
+            </ul>
         </main>
     </div>
 
