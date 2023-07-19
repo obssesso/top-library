@@ -1,5 +1,5 @@
 import bookModelFactory from "./bookModel.js";
-import addBookModalComponentFactory from "./addBookModal.js";
+import addBookModalComponent from "./addBookModal.js";
 
 export default function appFactory() {
   let currentRating;
@@ -116,7 +116,7 @@ export default function appFactory() {
   }
 
   function addBookModal() {
-    const formWrapper = addBookModalComponentFactory().createBookModalDOMNode();
+    const formWrapper = addBookModalComponent().createBookModalDOMNode();
     const firstChild = App.$.wrapper.firstChild;
     App.$.wrapper.insertBefore(formWrapper, firstChild);
   }

@@ -5,23 +5,29 @@
   margin: auto;
 }
 
-form {
+.add-book-form {
   display: grid;
-  border: 2px solid yellow;
+  border: 2px solid hsl(var(--clr-secondary-accent));
   border-radius: 5px;
   padding: 2rem;
   width: 80%;
 }
 
-label {
+.add-book-form > label {
   color: white;
 }
 
-input {
+.add-book-form input {
   width: 100%;
 }
 
-.close-modal {
+.add-book-form__add-button {
+  justify-self: end;
+  background-color: hsl(var(--clr-secondary-accent));
+  color: hsl(var(--clr-main-accent));
+}
+
+.add-book-form__close-button {
   right: 12px;
   top: 3px;
   font-size: 1.5rem;
@@ -82,7 +88,7 @@ input {
   }
 
   to {
-/*     transform: scale(1.3); */
+    /*     transform: scale(1.3); */
     transform: scale(0);
     opacity: 0;
   }
