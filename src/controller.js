@@ -1,4 +1,4 @@
-import bookModel from "./bookModel.js";
+import bookModelFactory from "./bookModel.js";
 
 export default function appFactory() {
   let currentRating;
@@ -8,11 +8,13 @@ export default function appFactory() {
       ratingStars: document.querySelectorAll("[data-star-number]"),
     },
   };
+
   function initApp() {
-    const model = new bookModel();
-    model.openDB();
+    const bookModel = bookModelFactory();
+    bookModel.addEventListener("update", fullRender);
     initEventListeners();
   }
+
   function initEventListeners() {
     initRatingStarEvents();
   }
@@ -49,6 +51,10 @@ export default function appFactory() {
       sibling.setAttribute("fill", color);
       sibling = sibling.nextElementSibling;
     }
+
+    function fullRender() {}
   }
-  return { initApp };
+
+  initApp();
+  return {};
 }
