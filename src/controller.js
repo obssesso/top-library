@@ -1,9 +1,18 @@
 import bookModelFactory from "./bookModel.js";
-import addBookModalComponent from "./addBookModal.js";
+import addBookModalComponentFactory from "./addBookModal.js";
 
 export default function appFactory() {
+  /* Function member attributes */
   let currentRating;
   let bookModel;
+  let addBookModalComponent;
+
+  window.addEventListener("unhandledrejection", unhandledRejection);
+
+  function unhandledRejection(event) {
+    console.error("Unhandled Rejection:", event.reason);
+  }
+
   const App = {
     $: {
       ratingStars: document.querySelectorAll("[data-star-number]"),
@@ -16,7 +25,7 @@ export default function appFactory() {
   async function initApp() {
     try {
       bookModel = await bookModelFactory();
-      /*       fullRenderView(); */
+      fullRenderView();
       bookModel.addEventListener("update", fullRenderView);
       initEventListeners();
     } catch (error) {}
@@ -28,27 +37,97 @@ export default function appFactory() {
     );
   }
 
-  function createBookCard(bookObject) {
-    const bookCard = document.createElement("li");
-    bookCard.classList.add(
-      "book",
-      "flex",
-      "ai-start",
-      "pb-bottom-700",
-      "mrgn-bottom-700"
-    );
-    bookCard.insertAdjacentHTML("afterbegin", returnBookCardHTML());
-    bookCard.querySelector('[data-book="title"]').textContent =
-      bookObject.title;
-    bookCard.querySelector('[data-book="author"]').textContent =
-      bookObject.author;
-    bookCard.querySelector('[data-book="status"]').textContent =
-      bookObject.status;
-    return bookCard;
+  function initEventListeners() {
+    /*     initRatingStarEvents();
+    bindBookCardEvents(); */
+    initGlobalEvents();
   }
 
-  function returnBookCardHTML() {
-    return `<img data-book="image" src="" alt="">
+  function initGlobalEvents() {
+    App.$.addBook.addEventListener("click", createBookModalView);
+  }
+
+  function createBookModalView() {
+    addBookModalComponent = addBookModalComponentFactory();
+
+    /* Add Book Event dispatched from Modal component*/
+    addBookModalComponent.addEventListener("addBook", bookModel.add);
+
+    /* create the Modal view */
+    const formWrapper = addBookModalComponent.createBookModalDOMNode();
+    const firstChild = App.$.wrapper.firstChild;
+    App.$.wrapper.insertBefore(formWrapper, firstChild);
+  }
+
+  function bindBookCardEvents() {
+    bookEvent("click", "[data-star-number]", onRatingStarInteraction);
+  }
+
+  function bookEvent(event, selector, handler) {
+    delegateEvent(App.$.bookList);
+  }
+
+  function delegateEvent(listener, event, selector, handler) {}
+
+  function initRatingStarEvents() {
+    document.querySelectorAll("[data-star-number]").forEach((ratingStar) => {
+      ratingStar.addEventListener(
+        "click",
+        onRatingStarInteraction.bind(ratingStar, "blue")
+      );
+      ratingStar.addEventListener(
+        "dblclick",
+        onRatingStarInteraction.bind(ratingStar, "none")
+      );
+      /*       ratingStar.addEventListener("mouseover", (event) =>
+        onRatingStarInteraction(event, "yellow")
+      ); */
+    });
+  }
+
+  function onRatingStarInteraction(color) {
+    this.parentElement.childNodes.forEach((child) => {
+      if (child.nodeType === Node.ELEMENT_NODE)
+        child.setAttribute("fill", "none");
+    });
+
+    //possibilty to reset star rating, when clicking on star thats currentRating again.
+    if (this.getAttribute("data-star-number") == currentRating) return;
+    currentRating = this.getAttribute("data-star-number");
+
+    this.setAttribute("fill", color);
+    let sibling = this.nextElementSibling;
+    while (sibling) {
+      sibling.setAttribute("fill", color);
+      sibling = sibling.nextElementSibling;
+    }
+  }
+
+  initApp();
+  return {};
+}
+
+/* BookCard Component */
+function createBookCard(bookObject) {
+  const bookCard = document.createElement("li");
+  bookCard.classList.add(
+    "book",
+    "flex",
+    "ai-start",
+    "pb-bottom-700",
+    "mrgn-bottom-700"
+  );
+  bookCard.insertAdjacentHTML("afterbegin", returnBookCardHTML());
+  bookCard.querySelector('[data-book="title"]').textContent = bookObject.title;
+  bookCard.querySelector('[data-book="author"]').textContent =
+    bookObject.author;
+  bookCard.querySelector('[data-book="status"]').textContent =
+    bookObject.status;
+  return bookCard;
+}
+
+function returnBookCardHTML() {
+  return `<img data-book="image" src="" alt="">
                     <div class="width-100">
                         <div class="flex ai-center jc-sb">
                             <span data-book="title" class="fs-book-title"></span>
@@ -103,68 +182,4 @@ export default function appFactory() {
                         </div>
                     </div>
 `;
-  }
-
-  function initEventListeners() {
-    /*     initRatingStarEvents();
-    bindBookCardEvents(); */
-    initGlobalEvents();
-  }
-
-  function initGlobalEvents() {
-    App.$.addBook.addEventListener("click", addBookModal);
-  }
-
-  function addBookModal() {
-    const formWrapper = addBookModalComponent().createBookModalDOMNode();
-    const firstChild = App.$.wrapper.firstChild;
-    App.$.wrapper.insertBefore(formWrapper, firstChild);
-  }
-
-  function bindBookCardEvents() {
-    bookEvent("click", "[data-star-number]", onRatingStarInteraction);
-  }
-
-  function bookEvent(event, selector, handler) {
-    delegateEvent(App.$.bookList);
-  }
-
-  function delegateEvent(listener, event, selector, handler) {}
-
-  function initRatingStarEvents() {
-    document.querySelectorAll("[data-star-number]").forEach((ratingStar) => {
-      ratingStar.addEventListener(
-        "click",
-        onRatingStarInteraction.bind(ratingStar, "blue")
-      );
-      ratingStar.addEventListener(
-        "dblclick",
-        onRatingStarInteraction.bind(ratingStar, "none")
-      );
-      /*       ratingStar.addEventListener("mouseover", (event) =>
-        onRatingStarInteraction(event, "yellow")
-      ); */
-    });
-  }
-
-  function onRatingStarInteraction(color) {
-    this.parentElement.childNodes.forEach((child) => {
-      if (child.nodeType === Node.ELEMENT_NODE)
-        child.setAttribute("fill", "none");
-    });
-
-    //possibilty to reset star rating, when clicking on star thats currentRating again.
-    if (this.getAttribute("data-star-number") == currentRating) return;
-    currentRating = this.getAttribute("data-star-number");
-
-    this.setAttribute("fill", color);
-    let sibling = this.nextElementSibling;
-    while (sibling) {
-      sibling.setAttribute("fill", color);
-      sibling = sibling.nextElementSibling;
-    }
-  }
-
-  initApp();
-  return {};
 }

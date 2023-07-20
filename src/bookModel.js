@@ -6,7 +6,7 @@ export default async function bookModelFactory() {
   let books;
   const bookStatus = enumFactory(["Read", "Want to Read", "Currently Reading"]);
 
-/*   let bookModel = Object.create(EventTarget.prototype); */
+  /*   let bookModel = Object.create(EventTarget.prototype); */
 
   const bookModel = new EventTarget();
 
@@ -18,7 +18,7 @@ export default async function bookModelFactory() {
 
   async function initModel() {
     books = [
-      {
+      /*       {
         id: 1,
         title: "The Great Gatsby",
         author: "Scott F. Fitzgerald",
@@ -38,12 +38,12 @@ export default async function bookModelFactory() {
         author: "George Orwell",
         rating: 4,
         status: bookStatus.wantToRead,
-      },
+      }, */
     ];
     db = await getDatabase();
     const transaction = db.transaction(["books"], "readonly");
     const store = transaction.objectStore("books");
-    /*     books = await store.getAll(); */
+    books = await store.getAll();
   }
 
   function getDatabase() {
@@ -57,22 +57,32 @@ export default async function bookModelFactory() {
   }
 
   function add(book) {
-    books.push(book);
-    update();
+    books.push(book.detail.bookToAdd);
+    try {
+      update();
+    } catch (error) {
+      console.log("schaisinn");
+    }
+    console.log("Alliu");
   }
 
   async function update() {
     const transaction = db.transaction("books", "readwrite");
     const store = transaction.objectStore("books");
 
-    const bookPromises = books.map((book) => store.put(book));
-
     try {
-      await Promise.all(bookPromises);
+      await books.forEach((book) => store.put(book));
       bookModel.dispatchEvent(new CustomEvent("update"));
     } catch (error) {
-      bookModel.dispatchEvent(new CustomEvent("updateFailed"));
+      bookModel.dispatchEvent(new CustomEvent("updateFailure"));
     }
+
+    /* Why does this not work? */
+    /*     try {
+      const bla = await Promise.all(books.map((book) => store.put(book)));
+    } catch (error) {
+      console.log("bla");
+    } */
   }
 
   function getBooks() {
