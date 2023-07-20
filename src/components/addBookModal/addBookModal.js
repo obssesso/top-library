@@ -60,19 +60,20 @@ export default function addBookModalComponentFactory() {
       }
     });
 
+    removeAddBookModal();
     const addBookEvent = new CustomEvent("addBook", { detail: { bookToAdd } });
     bookModalComponent.dispatchEvent(addBookEvent);
   }
 
-  function removeAddBookModal() {
+  function removeAddBookModal(event) {
     formWrapper.classList.add("wrapper-closing-animation");
     formWrapper.querySelector("form").classList.add("popup-closing-animation");
+    formWrapper
+      .querySelector('[data-add-book="close"]')
+      .removeEventListener("click", removeAddBookModal);
     setTimeout(() => {
-      formWrapper
-        .querySelector('[data-addBook="close"]')
-        .removeEventListener("click", removeAddBookModal);
-      formWrapper.remove();
-    }, 600);
+      formWrapper.style.display = "none";
+    }, 400);
   }
 
   return bookModalComponent;
@@ -80,7 +81,7 @@ export default function addBookModalComponentFactory() {
 
 function returnBookModalHTML() {
   return `
-            <form class="add-book-form pos-rel" action="">
+            <form class="add-book-form pos-rel" onsubmit="return false;" action="">
                 <button data-add-book="close" class="add-book-form__close-button pos-abs clr-white">X</button>
                 <h2 class="clr-white mrgn-bottom-700">Add a new book to your list</h2>
                 <label>

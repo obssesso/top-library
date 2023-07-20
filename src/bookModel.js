@@ -6,12 +6,14 @@ export default async function bookModelFactory() {
   let books;
   const bookStatus = enumFactory(["Read", "Want to Read", "Currently Reading"]);
 
+  /* Why does this give "invalid invocator error on .addEventListener, whats the difference to constructor function?" */
   /*   let bookModel = Object.create(EventTarget.prototype); */
 
   const bookModel = new EventTarget();
 
   bookModel.add = add;
   bookModel.getBooks = getBooks;
+  bookModel.updateBookRating = updateBookRating;
   await initModel();
 
   return bookModel;
@@ -40,10 +42,14 @@ export default async function bookModelFactory() {
         status: bookStatus.wantToRead,
       }, */
     ];
-    db = await getDatabase();
-    const transaction = db.transaction(["books"], "readonly");
-    const store = transaction.objectStore("books");
-    books = await store.getAll();
+    try {
+      db = await getDatabase();
+      const transaction = db.transaction(["books"], "readonly");
+      const store = transaction.objectStore("books");
+      books = await store.getAll();
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   function getDatabase() {
@@ -64,6 +70,20 @@ export default async function bookModelFactory() {
       console.log("schaisinn");
     }
     console.log("Alliu");
+  }
+
+  function updateBookRating(bookID, newRating) {
+    books = books.map((book) => {
+      if (!book.id == bookID) return book;
+
+      if (book.rating == newRating) {
+        book.rating = "";
+      } else {
+        book.rating = newRating;
+      }
+      return book;
+    });
+    update();
   }
 
   async function update() {
