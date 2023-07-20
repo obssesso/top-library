@@ -36,6 +36,7 @@ svg {
 
 :root {
   --clr-main-accent: 75 10% 40%;
+  --clr-secondary-accent: 44 100% 72%;
   --clr-paragraph-grey: 0 0% 44%;
   --clr-background: 104 10% 10%;
 
@@ -111,6 +112,10 @@ svg {
 
 .clr-main {
   color: hsl(var(--clr-main-accent));
+}
+
+.clr-secondary {
+  color: hsl(var(--clr-secondary-accent));
 }
 
 .clr-paragraph {
