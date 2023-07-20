@@ -74,7 +74,7 @@ export default async function bookModelFactory() {
 
   function updateBookRating(bookID, newRating) {
     books = books.map((book) => {
-      if (!book.id == bookID) return book;
+      if (book.id != bookID) return book;
 
       if (book.rating == newRating) {
         book.rating = "";
