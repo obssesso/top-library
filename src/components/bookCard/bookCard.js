@@ -5,7 +5,11 @@ export default function bookCardFactory() {
   const bookCardComponent = new EventTarget();
   bookCardComponent.createBookCard = createBookCard;
 
-  const ratingStarsComponent = ratingStarsComponentFactory();
+  const ratingStarsComponent = ratingStarsComponentFactory(
+    getComputedStyle(document.documentElement).getPropertyValue(
+      "--clr-secondary-accent"
+    )
+  );
 
   return bookCardComponent;
 
@@ -27,7 +31,8 @@ export default function bookCardFactory() {
     bookCard.querySelector('[data-book="status"]').textContent =
       bookObject.status;
 
-    colorizeRatingStars();
+    ratingStarsComponent.colorizeRatingStars(bookObject.rating, bookCard);
+    /*     colorizeRatingStars();
     function colorizeRatingStars() {
       if (bookObject.rating == "") return;
       const maxColorizedStar = bookCard.querySelector(
@@ -39,7 +44,7 @@ export default function bookCardFactory() {
         nextSibling.setAttribute("fill", "blue");
         nextSibling = nextSibling.nextElementSibling;
       }
-    }
+    } */
 
     return bookCard;
   }

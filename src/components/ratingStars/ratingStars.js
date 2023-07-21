@@ -1,4 +1,4 @@
-export default function ratingStarsComponentFactory() {
+export default function ratingStarsComponentFactory(starColor) {
   function returnRatingStarsHTML(numberOfStars) {
     let ratingString = "";
     for (let i = numberOfStars; i >= 1; i--) {
@@ -9,5 +9,18 @@ export default function ratingStarsComponentFactory() {
     }
     return ratingString;
   }
-  return { returnRatingStarsHTML };
+
+  function colorizeRatingStars(rating, objectThatsRated) {
+    if (rating == "") return;
+    const maxColorizedStar = objectThatsRated.querySelector(
+      `[data-star-number="${rating}"]`
+    );
+    maxColorizedStar.setAttribute("fill", `hsl(${starColor})`);
+    let nextSibling = maxColorizedStar.nextElementSibling;
+    while (nextSibling) {
+      nextSibling.setAttribute("fill", `hsl(${starColor})`);
+      nextSibling = nextSibling.nextElementSibling;
+    }
+  }
+  return { returnRatingStarsHTML, colorizeRatingStars };
 }
