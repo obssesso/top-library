@@ -102,7 +102,7 @@ export default function addBookModalComponentFactory() {
                     <p>Status</p>
                     <input data-book="status" type="text">
                 </label>
-                <label class="rating">
+                <label>
                     <p>Rating</p>
                     ${ratingStarsComponent.returnRatingStarsHTML(5)}
                 </label>
