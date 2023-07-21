@@ -32,20 +32,6 @@ export default function bookCardFactory() {
       bookObject.status;
 
     ratingStarsComponent.colorizeRatingStars(bookObject.rating, bookCard);
-    /*     colorizeRatingStars();
-    function colorizeRatingStars() {
-      if (bookObject.rating == "") return;
-      const maxColorizedStar = bookCard.querySelector(
-        `[data-star-number="${bookObject.rating}"]`
-      );
-      maxColorizedStar.setAttribute("fill", "blue");
-      let nextSibling = maxColorizedStar.nextElementSibling;
-      while (nextSibling) {
-        nextSibling.setAttribute("fill", "blue");
-        nextSibling = nextSibling.nextElementSibling;
-      }
-    } */
-
     return bookCard;
   }
 

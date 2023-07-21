@@ -1,10 +1,19 @@
 import "./addBookModal.css";
+import ratingStarsComponentFactory from "../ratingStars/ratingStars";
 
 export default function addBookModalComponentFactory() {
   let formWrapper;
 
   const bookModalComponent = new EventTarget();
   bookModalComponent.createBookModalDOMNode = createBookModalDOMNode;
+
+  const ratingStarsComponent = ratingStarsComponentFactory(
+    getComputedStyle(document.documentElement).getPropertyValue(
+      "--clr-secondary-accent"
+    )
+  );
+
+  return bookModalComponent;
 
   function createBookModalDOMNode() {
     createFormWrapperNode();
@@ -76,11 +85,8 @@ export default function addBookModalComponentFactory() {
     }, 400);
   }
 
-  return bookModalComponent;
-}
-
-function returnBookModalHTML() {
-  return `
+  function returnBookModalHTML() {
+    return `
             <form class="add-book-form pos-rel" onsubmit="return false;" action="">
                 <button data-add-book="close" class="add-book-form__close-button pos-abs clr-white">X</button>
                 <h2 class="clr-white mrgn-bottom-700">Add a new book to your list</h2>
@@ -96,11 +102,12 @@ function returnBookModalHTML() {
                     <p>Status</p>
                     <input data-book="status" type="text">
                 </label>
-                <label>
+                <label class="rating">
                     <p>Rating</p>
-                    <input data-book="rating" type="text">
+                    ${ratingStarsComponent.returnRatingStarsHTML(5)}
                 </label>
                 <button data-add-book="add" class="add-book-form__add-button">Add to list</button>
             </form>
 `;
+  }
 }
