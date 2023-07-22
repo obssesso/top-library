@@ -3,6 +3,7 @@ import ratingStarsComponentFactory from "../ratingStars/ratingStars";
 
 export default function addBookModalComponentFactory() {
   let formWrapper;
+  let currentRating;
 
   const bookModalComponent = new EventTarget();
   bookModalComponent.createBookModalDOMNode = createBookModalDOMNode;
@@ -10,7 +11,8 @@ export default function addBookModalComponentFactory() {
   const ratingStarsComponent = ratingStarsComponentFactory(
     getComputedStyle(document.documentElement).getPropertyValue(
       "--clr-secondary-accent"
-    )
+    ),
+    getComputedStyle(document.documentElement).getPropertyValue("--clr-white")
   );
 
   return bookModalComponent;
@@ -45,6 +47,10 @@ export default function addBookModalComponentFactory() {
     formWrapper
       .querySelector('[data-add-book="close"]')
       .addEventListener("click", removeAddBookModal);
+
+    formWrapper
+      .querySelectorAll("[data-star-number]")
+      .forEach((star) => star.addEventListener("click", changeRating));
   }
 
   function addBook() {
@@ -65,7 +71,7 @@ export default function addBookModalComponentFactory() {
         bookToAdd.status = metaInfo.value;
       }
       if (metaInfo.getAttribute("data-book") === "rating") {
-        bookToAdd.rating = metaInfo.value;
+        bookToAdd.rating = currentRating;
       }
     });
 
@@ -83,6 +89,18 @@ export default function addBookModalComponentFactory() {
     setTimeout(() => {
       formWrapper.style.display = "none";
     }, 400);
+  }
+
+  function changeRating(event) {
+    if (currentRating == event.target.dataset.starNumber) {
+      currentRating = 0;
+    } else {
+      currentRating = event.target.dataset.starNumber;
+    }
+    ratingStarsComponent.colorizeRatingStars(
+      currentRating,
+      formWrapper.querySelector('[data-book="rating"]')
+    );
   }
 
   function returnBookModalHTML() {
@@ -104,7 +122,9 @@ export default function addBookModalComponentFactory() {
                 </label>
                 <label>
                     <p>Rating</p>
+                    <div data-book="rating" class="flex rating jc-start">
                     ${ratingStarsComponent.returnRatingStarsHTML(5)}
+                    </div>
                 </label>
                 <button data-add-book="add" class="add-book-form__add-button">Add to list</button>
             </form>

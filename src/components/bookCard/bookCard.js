@@ -8,7 +8,11 @@ export default function bookCardFactory() {
   const ratingStarsComponent = ratingStarsComponentFactory(
     getComputedStyle(document.documentElement).getPropertyValue(
       "--clr-secondary-accent"
+    ),
+    getComputedStyle(document.documentElement).getPropertyValue(
+      "--clr-main-accent"
     )
+    /*     "white" */
   );
 
   return bookCardComponent;
