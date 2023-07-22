@@ -1,7 +1,13 @@
 import "./addBookModal.css";
 import ratingStarsComponentFactory from "../ratingStars/ratingStars";
+import bookFactory from "../../bookFactory.js";
 
-export default function addBookModalComponentFactory() {
+export default function addBookModalComponentFactory(
+  book,
+  formHeader,
+  buttonText,
+  mode
+) {
   let formWrapper;
   let currentRating;
 
@@ -35,26 +41,40 @@ export default function addBookModalComponentFactory() {
     );
 
     formWrapper.insertAdjacentHTML("afterbegin", returnBookModalHTML());
+    currentRating = book.rating;
+    ratingStarsComponent.colorizeRatingStars(
+      currentRating,
+      formWrapper.querySelector('[data-book="rating"]')
+    );
     formWrapper.querySelector("form").classList.add("popup-entrance-animation");
     formWrapper.classList.add("wrapper-entrance-animation");
   }
 
   function initEventListeners() {
-    formWrapper
-      .querySelector('[data-add-book="add"]')
-      .addEventListener("click", addBook);
-
+    initCorrectButtonListenerAccordingToMode();
     formWrapper
       .querySelector('[data-add-book="close"]')
-      .addEventListener("click", removeAddBookModal);
+      .addEventListener("click", removeBookModal);
 
     formWrapper
       .querySelectorAll("[data-star-number]")
       .forEach((star) => star.addEventListener("click", changeRating));
+
+    function initCorrectButtonListenerAccordingToMode() {
+      if (mode == "edit") {
+        formWrapper
+          .querySelector('[data-add-book="edit"]')
+          .addEventListener("click", editBook);
+      } else {
+        formWrapper
+          .querySelector('[data-add-book="add"]')
+          .addEventListener("click", addBook);
+      }
+    }
   }
 
   function addBook() {
-    const bookToAdd = {
+    /*     const bookToAdd = {
       title: "",
       author: "",
       status: "",
@@ -73,19 +93,47 @@ export default function addBookModalComponentFactory() {
       if (metaInfo.getAttribute("data-book") === "rating") {
         bookToAdd.rating = currentRating;
       }
-    });
+    }); */
+    /* 
+    bookToAdd = bookFactory(
+      formWrapper.querySelector('"[data-book=title]"').value,
+      formWrapper.querySelector('"[data-book=author]"').value,
+      formWrapper.querySelector('"[data-book=status]"').value,
+      currentRating
+    ); */
 
-    removeAddBookModal();
-    const addBookEvent = new CustomEvent("addBook", { detail: { bookToAdd } });
+    removeBookModal();
+    const addBookEvent = new CustomEvent("addBook", {
+      detail: createBookObjectFromUserInput(),
+    });
     bookModalComponent.dispatchEvent(addBookEvent);
   }
 
-  function removeAddBookModal(event) {
+  function editBook() {
+    removeBookModal();
+    const bookToEdit = createBookObjectFromUserInput();
+    bookToEdit.uuid = book.uuid;
+    const editBookEvent = new CustomEvent("editBook", {
+      detail: bookToEdit,
+    });
+    bookModalComponent.dispatchEvent(editBookEvent);
+  }
+
+  function createBookObjectFromUserInput() {
+    return bookFactory(
+      formWrapper.querySelector('[data-book="title"]').value,
+      formWrapper.querySelector('[data-book="author"]').value,
+      formWrapper.querySelector('[data-book="status"]').value,
+      currentRating
+    );
+  }
+
+  function removeBookModal(event) {
     formWrapper.classList.add("wrapper-closing-animation");
     formWrapper.querySelector("form").classList.add("popup-closing-animation");
     formWrapper
       .querySelector('[data-add-book="close"]')
-      .removeEventListener("click", removeAddBookModal);
+      .removeEventListener("click", removeBookModal);
     setTimeout(() => {
       formWrapper.style.display = "none";
     }, 400);
@@ -107,18 +155,22 @@ export default function addBookModalComponentFactory() {
     return `
             <form class="add-book-form pos-rel" onsubmit="return false;" action="">
                 <button data-add-book="close" class="add-book-form__close-button pos-abs clr-white">X</button>
-                <h2 class="clr-white mrgn-bottom-700">Add a new book to your list</h2>
+                <legend class="clr-white mrgn-bottom-700">${formHeader}</legend>
                 <label>
                     <p>Book Title</p>
-                    <input data-book="title" type="text">
+                    <input data-book="title" type="text" value="${book.title}">
                 </label>
                 <label>
                     <p>Author</p>
-                    <input data-book="author" type="text">
+                    <input data-book="author" type="text" value="${
+                      book.author
+                    }">
                 </label>
                 <label>
                     <p>Status</p>
-                    <input data-book="status" type="text">
+                    <input data-book="status" type="text" value="${
+                      book.status
+                    }">
                 </label>
                 <label>
                     <p>Rating</p>
@@ -126,7 +178,7 @@ export default function addBookModalComponentFactory() {
                     ${ratingStarsComponent.returnRatingStarsHTML(5)}
                     </div>
                 </label>
-                <button data-add-book="add" class="add-book-form__add-button">Add to list</button>
+                <button data-add-book="${mode}" class="add-book-form__add-button">${buttonText}</button>
             </form>
 `;
   }

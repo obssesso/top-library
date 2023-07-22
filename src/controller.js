@@ -42,19 +42,14 @@ export default function appFactory() {
     initBookCardEvents();
 
     function initGlobalEvents() {
-      App.$.addBook.addEventListener("click", createBookModalView);
-
-      function createBookModalView() {
-        addBookModalComponent = addBookModalComponentFactory();
-
-        /* Add Book Event dispatched from Modal component*/
-        addBookModalComponent.addEventListener("addBook", bookModel.add);
-
-        /* create the Modal view */
-        const formWrapper = addBookModalComponent.createBookModalDOMNode();
-        const firstChild = App.$.wrapper.firstChild;
-        App.$.wrapper.insertBefore(formWrapper, firstChild);
-      }
+      App.$.addBook.addEventListener("click", () =>
+        createBookModalView(
+          { title: "", author: "", status: "", rating: "" },
+          "Add a new book to your list",
+          "Add book",
+          "add"
+        )
+      );
     }
 
     function initBookStorageEvents() {
@@ -70,8 +65,23 @@ export default function appFactory() {
       });
 
       addBookCardEvent("click", '[data-book="delete"]', (book, event) => {
-        const bookID = book.dataset.bookId;
-        bookModel.deleteBook(bookID);
+        const bookUUID = book.dataset.bookUuid;
+        bookModel.deleteBook(bookUUID);
+      });
+
+      addBookCardEvent("click", '[data-book="edit"]', (book, event) => {
+        createBookModalView(
+          {
+            uuid: book.getAttribute("data-book-uuid"),
+            title: book.querySelector('[data-book="title"]').textContent,
+            author: book.querySelector('[data-book="author"]').textContent,
+            status: book.querySelector('[data-book="status"]').textContent,
+            rating: bookModel.getBookRating(book.dataset.bookId),
+          },
+          "Edit this book",
+          "Confirm Edit",
+          "edit"
+        );
       });
 
       function addBookCardEvent(eventName, selector, handler) {
@@ -81,6 +91,24 @@ export default function appFactory() {
           }
         });
       }
+    }
+
+    function createBookModalView(book, formHeader, buttonText, mode) {
+      addBookModalComponent = addBookModalComponentFactory(
+        book,
+        formHeader,
+        buttonText,
+        mode
+      );
+
+      /* Add Book Event dispatched from Modal component*/
+      addBookModalComponent.addEventListener("addBook", bookModel.add);
+      addBookModalComponent.addEventListener("editBook", bookModel.editBook);
+
+      /* create the Modal view */
+      const formWrapper = addBookModalComponent.createBookModalDOMNode();
+      const firstChild = App.$.wrapper.firstChild;
+      App.$.wrapper.insertBefore(formWrapper, firstChild);
     }
   }
 }

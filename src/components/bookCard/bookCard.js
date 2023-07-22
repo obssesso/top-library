@@ -26,7 +26,7 @@ export default function bookCardFactory() {
       "pb-bottom-700",
       "mrgn-bottom-700"
     );
-    bookCard.setAttribute("data-book-id", bookObject.id);
+    bookCard.setAttribute("data-book-uuid", bookObject.uuid);
     bookCard.insertAdjacentHTML("afterbegin", returnBookCardHTML());
     bookCard.querySelector('[data-book="title"]').textContent =
       bookObject.title;
@@ -76,8 +76,8 @@ export default function bookCardFactory() {
   function returnBookCardHTML() {
     return `<img data-book="image" src="" alt="">
                     <div class="width-100">
-                        <div class="flex ai-center jc-sb">
-                            <span data-book="title" class="fs-book-title"></span>
+                        <header class="flex ai-center jc-sb">
+                            <h2 data-book="title" class="fs-book-title"></h2>
                             <div class="flex book__icon-group" >
                               <svg data-book="edit" xmlns="http://www.w3.org/2000/svg" height="22"
                                   viewBox="0 -960 960 960" width="22">
@@ -97,8 +97,8 @@ export default function bookCardFactory() {
                                       stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                               </svg>
                             </div>
-                        </div>
-                        <div data-book="author" class="fs-book-author mrgn-bottom-500"></div>
+                        </header>
+                        <h3 data-book="author" class="fs-book-author mrgn-bottom-500"></h3>
                         <button class="book-status mrgn-bottom-500 bg-color-main flex ai-center jc-sb">
                             <span data-book="status"></span>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="#000000" width="22px" height="22px"

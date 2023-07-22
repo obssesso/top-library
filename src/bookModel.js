@@ -1,5 +1,6 @@
 import { openDB, deleteDB, wrap, unwrap } from "idb";
 import enumFactory from "./helpers.js";
+import { v4 as uuidv4 } from "uuid";
 
 export default async function bookModelFactory() {
   let db;
@@ -11,10 +12,13 @@ export default async function bookModelFactory() {
 
   const bookModel = new EventTarget();
 
-  bookModel.add = add;
-  bookModel.getBooks = getBooks;
-  bookModel.updateBookRating = updateBookRating;
-  bookModel.deleteBook = deleteBook;
+  bookModel.add = _add;
+  bookModel.editBook = _editBook;
+  bookModel.getBooks = _getBooks;
+  bookModel.updateBookRating = _updateBookRating;
+  bookModel.getBookRating = _getBookRating;
+  bookModel.deleteBook = _deleteBook;
+
   await initModel();
 
   return bookModel;
@@ -37,21 +41,36 @@ export default async function bookModelFactory() {
 
   function upgrade(db) {
     if (!db.objectStoreNames.contains("books")) {
-      db.createObjectStore("books", { keyPath: "id", autoIncrement: true });
+      db.createObjectStore("books", { keyPath: "uuid" });
     }
   }
 
-  function add(book) {
-    books.push(book.detail.bookToAdd);
+  function _add(addBookEvent) {
+    const bookToAdd = addBookEvent.detail;
+    bookToAdd.uuid = uuidv4();
+
+    books.push(bookToAdd);
     try {
       update();
     } catch (error) {
       console.log("schaisinn");
     }
-    console.log("Alliu");
   }
 
-  function updateBookRating(bookID, newRating) {
+  function _editBook(editBookEvent) {
+    const bookToEdit = editBookEvent.detail;
+    books = books.map((book) => {
+      if ((book.uuid = bookToEdit.uuid)) return bookToEdit;
+      return book;
+    });
+    try {
+      update();
+    } catch (error) {
+      console.log("schaisinn");
+    }
+  }
+
+  function _updateBookRating(bookID, newRating) {
     books = books.map((book) => {
       if (book.id != bookID) return book;
 
@@ -65,12 +84,16 @@ export default async function bookModelFactory() {
     update();
   }
 
-  async function deleteBook(bookID) {
-    books = books.filter((book) => book.id != bookID);
+  function _getBookRating(bookID) {
+    return books.find((book) => book.id == bookID).rating;
+  }
+
+  async function _deleteBook(bookUUID) {
+    books = books.filter((book) => book.uuid != bookUUID);
     try {
       const transaction = db.transaction("books", "readwrite");
       const objectStore = transaction.objectStore("books");
-      await objectStore.delete(Number(bookID));
+      await objectStore.delete(bookUUID);
       bookModel.dispatchEvent(new CustomEvent("update"));
     } catch (error) {
       bookModel.dispatchEvent(new CustomEvent("updateFailure"));
@@ -83,7 +106,7 @@ export default async function bookModelFactory() {
 
     try {
       await books.forEach((book) => store.put(book));
-      books = await store.getAll(); // This sucks and is done, because of autoIncrement ID.
+/*       books = await store.getAll(); // This sucks and is done, because of autoIncrement ID. */
       bookModel.dispatchEvent(new CustomEvent("update"));
     } catch (error) {
       bookModel.dispatchEvent(new CustomEvent("updateFailure"));
@@ -97,7 +120,7 @@ export default async function bookModelFactory() {
     } */
   }
 
-  function getBooks() {
+  function _getBooks() {
     return books;
   }
 }
