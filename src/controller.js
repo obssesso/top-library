@@ -69,6 +69,11 @@ export default function appFactory() {
         bookModel.updateBookRating(bookID, newRating);
       });
 
+      addBookCardEvent("click", '[data-book="delete"]', (book, event) => {
+        const bookID = book.dataset.bookId;
+        bookModel.deleteBook(bookID);
+      });
+
       function addBookCardEvent(eventName, selector, handler) {
         App.$.bookList.addEventListener(eventName, (event) => {
           if (event.target.matches(selector)) {

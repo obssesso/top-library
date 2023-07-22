@@ -78,13 +78,13 @@ export default function bookCardFactory() {
                     <div class="width-100">
                         <div class="flex ai-center jc-sb">
                             <span data-book="title" class="fs-book-title"></span>
-                            <div class="flex book__icon-group">
-                              <svg class="edit-button" xmlns="http://www.w3.org/2000/svg" height="22"
+                            <div class="flex book__icon-group" >
+                              <svg data-book="edit" xmlns="http://www.w3.org/2000/svg" height="22"
                                   viewBox="0 -960 960 960" width="22">
                                   <path
                                       d="M180-180h44l443-443-44-44-443 443v44Zm614-486L666-794l42-42q17-17 42-17t42 17l44 44q17 17 17 42t-17 42l-42 42Zm-42 42L248-120H120v-128l504-504 128 128Zm-107-21-22-22 44 44-22-22Z" />
                               </svg>
-                              <svg width="22px" height="22px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <svg data-book="delete" width="22px" height="22px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                   <path d="M10 12V17" stroke="#000000" stroke-width="1.5" stroke-linecap="round"
                                       stroke-linejoin="round" />
                                   <path d="M14 12V17" stroke="#000000" stroke-width="1.5" stroke-linecap="round"

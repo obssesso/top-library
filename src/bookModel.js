@@ -14,6 +14,7 @@ export default async function bookModelFactory() {
   bookModel.add = add;
   bookModel.getBooks = getBooks;
   bookModel.updateBookRating = updateBookRating;
+  bookModel.deleteBook = deleteBook;
   await initModel();
 
   return bookModel;
@@ -64,14 +65,26 @@ export default async function bookModelFactory() {
     update();
   }
 
+  async function deleteBook(bookID) {
+    books = books.filter((book) => book.id != bookID);
+    try {
+      const transaction = db.transaction("books", "readwrite");
+      const objectStore = transaction.objectStore("books");
+      await objectStore.delete(Number(bookID));
+      bookModel.dispatchEvent(new CustomEvent("update"));
+    } catch (error) {
+      bookModel.dispatchEvent(new CustomEvent("updateFailure"));
+    }
+  }
+
   async function update() {
     const transaction = db.transaction("books", "readwrite");
     const store = transaction.objectStore("books");
 
     try {
       await books.forEach((book) => store.put(book));
-      bookModel.dispatchEvent(new CustomEvent("update"));
       books = await store.getAll(); // This sucks and is done, because of autoIncrement ID.
+      bookModel.dispatchEvent(new CustomEvent("update"));
     } catch (error) {
       bookModel.dispatchEvent(new CustomEvent("updateFailure"));
     }
