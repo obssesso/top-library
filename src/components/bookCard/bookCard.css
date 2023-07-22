@@ -7,6 +7,10 @@
   width: 7.5rem;
 }
 
+.book__icon-group{
+  --gap: .4rem;
+}
+
 .book-status {
   display: flex;
   width: min(80%, 15rem);
