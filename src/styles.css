@@ -115,6 +115,10 @@ svg {
   color: hsl(var(--clr-main-accent));
 }
 
+.bg-color-main-thin {
+  background-color: hsl(var(--clr-main-accent) / 0.7);
+}
+
 .clr-secondary {
   color: hsl(var(--clr-secondary-accent));
 }
@@ -302,6 +306,10 @@ svg {
   inset: 0;
 }
 
+.disp-none {
+  display: none;
+}
+
 /* Modals, Popups */
 .darken {
   opacity: 0.1;
@@ -309,6 +317,10 @@ svg {
 }
 
 /* ----------------------------- Components ---------------------- */
+
+button {
+  cursor: pointer;
+}
 
 .wrapper {
   margin-inline: auto;
@@ -354,4 +366,3 @@ svg {
   border-radius: 5px;
   --gap: 1rem;
 }
-

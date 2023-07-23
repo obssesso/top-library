@@ -70,9 +70,9 @@ export default async function bookModelFactory() {
     }
   }
 
-  function _updateBookRating(bookID, newRating) {
+  function _updateBookRating(bookUUID, newRating) {
     books = books.map((book) => {
-      if (book.id != bookID) return book;
+      if (book.uuid != bookUUID) return book;
 
       if (book.rating == newRating) {
         book.rating = "";
@@ -84,8 +84,8 @@ export default async function bookModelFactory() {
     update();
   }
 
-  function _getBookRating(bookID) {
-    return books.find((book) => book.id == bookID).rating;
+  function _getBookRating(bookUUID) {
+    return books.find((book) => book.uuid == bookUUID).rating;
   }
 
   async function _deleteBook(bookUUID) {

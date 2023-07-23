@@ -5,6 +5,7 @@ import bookCardComponentFactory from "./components/bookCard/bookCard.js";
 export default function appFactory() {
   /* Function member attributes */
   let bookModel;
+  const bookCardComponent = bookCardComponentFactory();
 
   const App = {
     $: {
@@ -26,7 +27,6 @@ export default function appFactory() {
   }
 
   function fullRenderView() {
-    let bookCardComponent = bookCardComponentFactory();
     App.$.bookList.replaceChildren(
       ...bookModel
         .getBooks()
@@ -58,31 +58,54 @@ export default function appFactory() {
     }
 
     function initBookCardEvents() {
-      addBookCardEvent("click", "[data-star-number]", (book, event) => {
+      addBookCardEvent("click", "[data-star-number]", (bookListItem, event) => {
         const newRating = event.target.dataset.starNumber;
-        const bookID = book.dataset.bookId;
+        const bookID = bookListItem.dataset.bookUuid;
         bookModel.updateBookRating(bookID, newRating);
       });
 
-      addBookCardEvent("click", '[data-book="delete"]', (book, event) => {
-        const bookUUID = book.dataset.bookUuid;
-        bookModel.deleteBook(bookUUID);
-      });
+      addBookCardEvent(
+        "click",
+        '[data-book="delete"]',
+        (bookListItem, event) => {
+          const bookUUID = bookListItem.dataset.bookUuid;
+          bookModel.deleteBook(bookUUID);
+        }
+      );
 
-      addBookCardEvent("click", '[data-book="edit"]', (book, event) => {
+      addBookCardEvent("click", '[data-book="edit"]', (bookListItem, event) => {
         createBookModalView(
           {
-            uuid: book.getAttribute("data-book-uuid"),
-            title: book.querySelector('[data-book="title"]').textContent,
-            author: book.querySelector('[data-book="author"]').textContent,
-            status: book.querySelector('[data-book="status"]').textContent,
-            rating: bookModel.getBookRating(book.dataset.bookId),
+            uuid: bookListItem.getAttribute("data-book-uuid"),
+            title: bookListItem.querySelector('[data-book="title"]')
+              .textContent,
+            author: bookListItem.querySelector('[data-book="author"]')
+              .textContent,
+            status: bookListItem.querySelector('[data-book="status"]')
+              .textContent,
+            rating: bookModel.getBookRating(bookListItem.dataset.bookId),
           },
           "Edit this book",
           "Confirm Edit",
           "edit"
         );
       });
+
+      addBookCardEvent(
+        "click",
+        '[aria-label="collapse-button"]',
+        (bookListItem, event) => {
+          bookCardComponent.onDropDownFocus(bookListItem);
+        }
+      );
+
+      addBookCardEvent(
+        "blur",
+        '[aria-label="collapse-button"]',
+        (bookListItem, event) => {
+          bookCardComponent.onDropDownBlur(bookListItem);
+        }
+      );
 
       function addBookCardEvent(eventName, selector, handler) {
         App.$.bookList.addEventListener(eventName, (event) => {

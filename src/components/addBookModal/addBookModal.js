@@ -1,6 +1,7 @@
 import "./addBookModal.css";
 import ratingStarsComponentFactory from "../ratingStars/ratingStars";
 import bookFactory from "../../bookFactory.js";
+import readingStatusFactory from "../readingStatus/readingStatus.js";
 
 export default function addBookModalComponentFactory(
   book,
@@ -13,6 +14,8 @@ export default function addBookModalComponentFactory(
 
   const bookModalComponent = new EventTarget();
   bookModalComponent.createBookModalDOMNode = createBookModalDOMNode;
+
+  const readingStatusComponent = readingStatusFactory();
 
   const ratingStarsComponent = ratingStarsComponentFactory(
     getComputedStyle(document.documentElement).getPropertyValue(
@@ -60,6 +63,12 @@ export default function addBookModalComponentFactory(
       .querySelectorAll("[data-star-number]")
       .forEach((star) => star.addEventListener("click", changeRating));
 
+    formWrapper
+      .querySelector(".book-status")
+      .addEventListener("click", () =>
+        readingStatusComponent.onDropDownFocus(formWrapper)
+      );
+
     function initCorrectButtonListenerAccordingToMode() {
       if (mode == "edit") {
         formWrapper
@@ -74,34 +83,6 @@ export default function addBookModalComponentFactory(
   }
 
   function addBook() {
-    /*     const bookToAdd = {
-      title: "",
-      author: "",
-      status: "",
-      rating: "",
-    };
-    formWrapper.querySelectorAll("[data-book]").forEach((metaInfo) => {
-      if (metaInfo.getAttribute("data-book") === "title") {
-        bookToAdd.title = metaInfo.value;
-      }
-      if (metaInfo.getAttribute("data-book") === "author") {
-        bookToAdd.author = metaInfo.value;
-      }
-      if (metaInfo.getAttribute("data-book") === "status") {
-        bookToAdd.status = metaInfo.value;
-      }
-      if (metaInfo.getAttribute("data-book") === "rating") {
-        bookToAdd.rating = currentRating;
-      }
-    }); */
-    /* 
-    bookToAdd = bookFactory(
-      formWrapper.querySelector('"[data-book=title]"').value,
-      formWrapper.querySelector('"[data-book=author]"').value,
-      formWrapper.querySelector('"[data-book=status]"').value,
-      currentRating
-    ); */
-
     removeBookModal();
     const addBookEvent = new CustomEvent("addBook", {
       detail: createBookObjectFromUserInput(),
@@ -168,9 +149,7 @@ export default function addBookModalComponentFactory(
                 </label>
                 <label>
                     <p>Status</p>
-                    <input data-book="status" type="text" value="${
-                      book.status
-                    }">
+                ${readingStatusComponent.returnReadingStatusHTML()}
                 </label>
                 <label>
                     <p>Rating</p>

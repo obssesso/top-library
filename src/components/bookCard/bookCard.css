@@ -13,10 +13,10 @@
 
 .book-status {
   display: flex;
-  width: min(80%, 15rem);
+  width: var(--width);
   color: #fff;
   border-radius: 5px;
-  padding-left: 1.2rem;
+  padding-left: var(--padding-left);
   padding-block: 0.3rem;
   border: 0;
 }
