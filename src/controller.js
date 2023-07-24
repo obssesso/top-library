@@ -58,6 +58,9 @@ export default function appFactory() {
     }
 
     function initBookCardEvents() {
+      bookCardComponent.addEventListener("statusupdate", (event) =>
+        bookModel.updateReadingStatus(event.detail.uuid, event.detail.newStatus)
+      );
       addBookCardEvent("click", "[data-star-number]", (bookListItem, event) => {
         const newRating = event.target.dataset.starNumber;
         const bookID = bookListItem.dataset.bookUuid;
@@ -83,7 +86,7 @@ export default function appFactory() {
               .textContent,
             status: bookListItem.querySelector('[data-book="status"]')
               .textContent,
-            rating: bookModel.getBookRating(bookListItem.dataset.bookId),
+            rating: bookModel.getBookRating(bookListItem.dataset.bookUuid),
           },
           "Edit this book",
           "Confirm Edit",
@@ -93,17 +96,18 @@ export default function appFactory() {
 
       addBookCardEvent(
         "click",
-        '[aria-label="collapse-button"]',
+        '[data-book="status-option"]',
         (bookListItem, event) => {
-          bookCardComponent.onDropDownFocus(bookListItem);
+          const bookUUID = bookListItem.dataset.bookUuid;
+          bookModel.updateReadingStatus(bookUUID, event.target.textContent);
         }
       );
 
       addBookCardEvent(
-        "blur",
+        "click",
         '[aria-label="collapse-button"]',
         (bookListItem, event) => {
-          bookCardComponent.onDropDownBlur(bookListItem);
+          bookCardComponent.onDropDownFocus(bookListItem);
         }
       );
 

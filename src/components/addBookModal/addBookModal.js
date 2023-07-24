@@ -69,6 +69,8 @@ export default function addBookModalComponentFactory(
         readingStatusComponent.onDropDownFocus(formWrapper)
       );
 
+    readingStatusComponent.initEventListeners(formWrapper);
+
     function initCorrectButtonListenerAccordingToMode() {
       if (mode == "edit") {
         formWrapper

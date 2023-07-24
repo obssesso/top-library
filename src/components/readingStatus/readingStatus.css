@@ -17,6 +17,8 @@
 
 .reading-status > ul > li {
   padding-left: var(--padding-left);
+  z-index: 1000;
+  position:relative;
 }
 
 .reading-status > ul > li:hover {
@@ -26,7 +28,6 @@
 }
 
 .reading-status__listbox {
-  z-index: 2;
   width: var(--width);
   padding-block: 0.3rem;
   display: none;

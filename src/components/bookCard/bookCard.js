@@ -38,8 +38,14 @@ export default function bookCardFactory() {
       bookObject.author;
     bookCard.querySelector('[data-book="status"]').textContent =
       bookObject.status;
+    readingStatusDropdown.initEventListeners(bookCard);
+    readingStatusDropdown.addEventListener("statusupdate", (event) => {
+      bookCardComponent.dispatchEvent(
+        new CustomEvent("statusupdate", { detail: event.detail })
+      );
+    });
     bookCard.querySelector(".book-status").addEventListener("blur", (event) => {
-      _onDropDownBlur(event.target.closest(".book"));
+      _onDropDownBlur(event, event.target.closest(".book"));
     });
 
     ratingStarsComponent.colorizeRatingStars(bookObject.rating, bookCard);
@@ -50,8 +56,8 @@ export default function bookCardFactory() {
     readingStatusDropdown.onDropDownFocus(bookListItem);
   }
 
-  function _onDropDownBlur(bookListItem) {
-    readingStatusDropdown.onDropDownBlur(bookListItem);
+  function _onDropDownBlur(event, bookListItem) {
+    readingStatusDropdown.onDropDownBlur(event, bookListItem);
   }
 
   function returnBookCardHTML() {
