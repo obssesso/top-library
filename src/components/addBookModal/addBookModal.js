@@ -106,7 +106,7 @@ export default function addBookModalComponentFactory(
     return bookFactory(
       formWrapper.querySelector('[data-book="title"]').value,
       formWrapper.querySelector('[data-book="author"]').value,
-      formWrapper.querySelector('[data-book="status"]').value,
+      formWrapper.querySelector('[data-book="status"]').textContent,
       currentRating
     );
   }

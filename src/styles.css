@@ -316,10 +316,17 @@ svg {
   background-color: hsl(0 0% 0% / 0.1);
 }
 
+/* Cursor */
+.cursor-pointer {
+  cursor: pointer;
+}
+
 /* ----------------------------- Components ---------------------- */
 
 button {
   cursor: pointer;
+  border: 0;
+  background-color: transparent;
 }
 
 .wrapper {

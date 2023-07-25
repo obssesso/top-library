@@ -95,7 +95,7 @@ export default function appFactory() {
       });
 
       addBookCardEvent(
-        "click",
+        "mousedown",
         '[data-book="status-option"]',
         (bookListItem, event) => {
           const bookUUID = bookListItem.dataset.bookUuid;

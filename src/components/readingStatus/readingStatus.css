@@ -17,7 +17,6 @@
 
 .reading-status > ul > li {
   padding-left: var(--padding-left);
-  z-index: 1000;
   position:relative;
 }
 
