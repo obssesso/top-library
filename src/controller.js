@@ -13,6 +13,7 @@ export default function appFactory() {
       bookList: document.querySelector(".books"),
       addBook: document.querySelector('[data-global-action="add"]'),
       wrapper: document.querySelector('[data-global="wrapper"]'),
+      searchBar: document.querySelector('[data-app="search-book-in-list"]'),
     },
   };
 
@@ -50,6 +51,24 @@ export default function appFactory() {
           "add"
         )
       );
+
+      const debouncedSearchInList = debounce(
+        (searchTerm) => bookModel.updateSearch(searchTerm),
+        500
+      );
+      App.$.searchBar.addEventListener("input", (event) =>
+        debouncedSearchInList(event.target.value)
+      );
+
+      function debounce(cb, delay) {
+        let timeout;
+        return (...args) => {
+          clearTimeout(timeout);
+          timeout = setTimeout(() => {
+            cb(...args);
+          }, delay);
+        };
+      }
     }
 
     function initBookStorageEvents() {

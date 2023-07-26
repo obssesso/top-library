@@ -7,9 +7,9 @@
   width: 7.5rem;
 }
 
-.book__icon-group{
-  flex-shrink:0;
-  --gap: .4rem;
+.book__icon-group {
+  flex-shrink: 0;
+  --gap: 0.4rem;
 }
 
 .book-status {

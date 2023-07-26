@@ -19,6 +19,7 @@ export default async function bookModelFactory() {
   bookModel.updateReadingStatus = _updateReadingStatus;
   bookModel.getBookRating = _getBookRating;
   bookModel.deleteBook = _deleteBook;
+  bookModel.updateSearch = _updateSearch;
 
   await initModel();
 
@@ -61,7 +62,7 @@ export default async function bookModelFactory() {
   function _editBook(editBookEvent) {
     const bookToEdit = editBookEvent.detail;
     books = books.map((book) => {
-      if ((book.uuid == bookToEdit.uuid)) return bookToEdit;
+      if (book.uuid == bookToEdit.uuid) return bookToEdit;
       return book;
     });
     try {
@@ -111,6 +112,13 @@ export default async function bookModelFactory() {
     update();
   }
 
+  function _updateSearch(searchTerm) {
+    const pattern = new RegExp(searchTerm, "i");
+    books = books.filter((book) => {
+      return pattern.test(book.title) || pattern.test(book.author);
+    });
+    update();
+  }
   async function update() {
     const transaction = db.transaction("books", "readwrite");
     const store = transaction.objectStore("books");
