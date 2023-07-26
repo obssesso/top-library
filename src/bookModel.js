@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 export default async function bookModelFactory() {
   let db;
   let books;
+  let searchFilter = "";
   const bookStatus = enumFactory(["Read", "Want to Read", "Currently Reading"]);
 
   /* Why does this give "invalid invocator error on .addEventListener, whats the difference to constructor function?" */
@@ -27,14 +28,7 @@ export default async function bookModelFactory() {
 
   async function initModel() {
     books = [];
-    try {
-      db = await getDatabase();
-      const transaction = db.transaction(["books"], "readonly");
-      const store = transaction.objectStore("books");
-      books = await store.getAll();
-    } catch (error) {
-      console.log(error);
-    }
+    await getAllBooks();
   }
 
   function getDatabase() {
@@ -44,6 +38,17 @@ export default async function bookModelFactory() {
   function upgrade(db) {
     if (!db.objectStoreNames.contains("books")) {
       db.createObjectStore("books", { keyPath: "uuid" });
+    }
+  }
+
+  async function getAllBooks() {
+    try {
+      db = await getDatabase();
+      const transaction = db.transaction(["books"], "readonly");
+      const store = transaction.objectStore("books");
+      books = await store.getAll();
+    } catch (error) {
+      console.log(error);
     }
   }
 
@@ -112,12 +117,18 @@ export default async function bookModelFactory() {
     update();
   }
 
-  function _updateSearch(searchTerm) {
-    const pattern = new RegExp(searchTerm, "i");
-    books = books.filter((book) => {
-      return pattern.test(book.title) || pattern.test(book.author);
-    });
-    update();
+  async function _updateSearch(searchTerm) {
+    searchFilter = searchTerm;
+    bookModel.dispatchEvent(new CustomEvent("update"));
+    /*     if (searchTerm == "") {
+      await getAllBooks();
+    } else {
+      const pattern = new RegExp(searchTerm, "i");
+      books = books.filter((book) => {
+        return pattern.test(book.title) || pattern.test(book.author);
+      });
+    }
+    update(); */
   }
   async function update() {
     const transaction = db.transaction("books", "readwrite");
@@ -139,6 +150,11 @@ export default async function bookModelFactory() {
   }
 
   function _getBooks() {
-    return books;
+    if (searchFilter == "") return books;
+
+    const pattern = new RegExp(searchFilter, "i");
+    return books.filter((book) => {
+      return pattern.test(book.title) || pattern.test(book.author);
+    });
   }
 }

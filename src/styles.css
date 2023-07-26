@@ -344,14 +344,34 @@ button {
   padding: 0.1rem;
 }
 
-.list-search-input {
+.list-search__input {
   appearance: none;
   border: 0;
   outline: none;
   width: 100%;
   padding-block: 0.5rem;
+  padding-inline: 1rem;
   color: hsl(var(--clr-main-accent));
 }
+
+.list-search__icon-group {
+  gap: 0.5rem;
+}
+
+.list-search__icon-group::before {
+  content: "";
+  border: 1px solid hsl(var(--clr-main-accent));
+  height: 80%;
+}
+
+.list-search__icon-group svg:nth-child(1) {
+  order: -1;
+}
+
+/* .list-search__icon-group:nth-child(1){
+  border-right: 1px solid hsl(var(--clr-main-accent));
+  border: 2px solid red;
+} */
 
 .list-search svg {
   transform: scale(0.8);
