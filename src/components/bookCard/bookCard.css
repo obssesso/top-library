@@ -5,6 +5,7 @@
 .book > img {
   object-fit: cover;
   width: 7.5rem;
+  display: none;
 }
 
 .book__icon-group {

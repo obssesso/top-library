@@ -5,6 +5,10 @@
   width: var(--width);
 }
 
+.book-status > span {
+  pointer-events: none;
+}
+
 .book-status:hover {
   background-color: hsl(var(--clr-secondary-accent) / 0.5);
   color: hsl(var(--clr-main-accent));
@@ -17,7 +21,7 @@
 
 .reading-status > ul > li {
   padding-left: var(--padding-left);
-  position:relative;
+  position: relative;
 }
 
 .reading-status > ul > li:hover {
@@ -28,7 +32,6 @@
 
 .reading-status__listbox {
   width: var(--width);
-  padding-block: 0.3rem;
   display: none;
 }
 

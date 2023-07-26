@@ -54,7 +54,7 @@ export default function appFactory() {
 
       const debouncedSearchInList = debounce(
         (searchTerm) => bookModel.updateSearch(searchTerm),
-        500
+        400
       );
       App.$.searchBar.addEventListener("input", (event) =>
         debouncedSearchInList(event.target.value)

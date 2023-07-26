@@ -118,7 +118,7 @@ export default async function bookModelFactory() {
   }
 
   async function _updateSearch(searchTerm) {
-    searchFilter = searchTerm;
+    searchFilter = searchTerm.trim();
     bookModel.dispatchEvent(new CustomEvent("update"));
     /*     if (searchTerm == "") {
       await getAllBooks();
