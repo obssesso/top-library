@@ -368,10 +368,22 @@ button {
   order: -1;
 }
 
-/* .list-search__icon-group:nth-child(1){
-  border-right: 1px solid hsl(var(--clr-main-accent));
-  border: 2px solid red;
-} */
+.list-search__icon-group__loader {
+  border-left: 3px solid hsl(var(--clr-secondary-accent));
+  border-radius: 50%;
+  width: 2rem;
+  aspect-ratio: 1;
+  order: -2;
+  animation: load linear 450ms infinite;
+  box-shadow: 1px 1px 2px hsl(var(--clr-secondary-accent));
+  display: none;
+}
+
+@keyframes load {
+  to {
+    transform: rotate(360deg);
+  }
+}
 
 .list-search svg {
   transform: scale(0.8);

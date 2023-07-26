@@ -64,8 +64,14 @@ export default function appFactory() {
         let timeout;
         return (...args) => {
           clearTimeout(timeout);
+          document.querySelector(
+            '[data-app="search-in-list-loader"]'
+          ).style.display = "block";
           timeout = setTimeout(() => {
             cb(...args);
+            document.querySelector(
+              '[data-app="search-in-list-loader"]'
+            ).style.display = "none";
           }, delay);
         };
       }
