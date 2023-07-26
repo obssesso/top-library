@@ -61,7 +61,7 @@ export default async function bookModelFactory() {
   function _editBook(editBookEvent) {
     const bookToEdit = editBookEvent.detail;
     books = books.map((book) => {
-      if ((book.uuid = bookToEdit.uuid)) return bookToEdit;
+      if ((book.uuid == bookToEdit.uuid)) return bookToEdit;
       return book;
     });
     try {

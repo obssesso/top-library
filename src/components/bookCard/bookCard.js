@@ -39,11 +39,11 @@ export default function bookCardFactory() {
     bookCard.querySelector('[data-book="status"]').textContent =
       bookObject.status;
     readingStatusDropdown.initEventListeners(bookCard);
-/*     readingStatusDropdown.addEventListener("statusupdate", (event) => {
+    readingStatusDropdown.addEventListener("statusupdate", (event) => {
       bookCardComponent.dispatchEvent(
         new CustomEvent("statusupdate", { detail: event.detail })
       );
-    }); */
+    });
     bookCard.querySelector(".book-status").addEventListener("blur", (event) => {
       _onDropDownBlur(event, event.target.closest(".book"));
     });

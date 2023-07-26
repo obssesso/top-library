@@ -12,14 +12,6 @@ export default function readingStatusComponentFactory() {
       .querySelector("[data-book='status-options']")
       .addEventListener("mousedown", (event) => {
         onStatusChoice(containerObject, event.target);
-/*         readingStatusComponent.dispatchEvent(
-          new CustomEvent("statusupdate", {
-            detail: {
-              uuid: containerObject.dataset.bookUuid,
-              newStatus: event.target.textContent,
-            },
-          })
-        ); */
       });
   }
 
@@ -54,11 +46,11 @@ export default function readingStatusComponentFactory() {
       target.textContent;
   }
 
-  function _returnReadingStatusHTML() {
+  function _returnReadingStatusHTML(readingStatusTextContent) {
     return `<div class="reading-status pos-rel">
                             <button aria-label="collapse-button" aria-expanded="false" aria-controls="reading-status"
                                 class="bg-color-main book-status mrgn-bottom-200 flex ai-center jc-sb">
-                                <span data-book="status">Read</span>
+                                <span data-book="status">${readingStatusTextContent}</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="#000000" width="22px" height="22px"
                                     viewBox="0 0 24 24" pointer-events="none">
                                     <path d="M7 10l5 5 5-5z" pointer-events="none"/>

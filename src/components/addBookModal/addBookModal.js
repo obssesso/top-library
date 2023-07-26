@@ -118,7 +118,7 @@ export default function addBookModalComponentFactory(
       .querySelector('[data-add-book="close"]')
       .removeEventListener("click", removeBookModal);
     setTimeout(() => {
-      formWrapper.style.display = "none";
+      formWrapper.remove();
     }, 400);
   }
 
@@ -151,7 +151,7 @@ export default function addBookModalComponentFactory(
                 </label>
                 <label>
                     <p>Status</p>
-                ${readingStatusComponent.returnReadingStatusHTML()}
+                ${readingStatusComponent.returnReadingStatusHTML(book.status)}
                 </label>
                 <label>
                     <p>Rating</p>
