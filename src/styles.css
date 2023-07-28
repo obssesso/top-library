@@ -270,6 +270,10 @@ svg {
   gap: var(--gap, 1rem);
 }
 
+.flex-column {
+  flex-direction: column;
+}
+
 .jc-start {
   justify-content: start;
 }
@@ -392,6 +396,42 @@ button {
 .list-search-input::placeholder {
   padding-inline: 2rem;
   color: hsl(var(--clr-main-accent));
+}
+
+[data-app="filter-button"]:focus-within [data-app="filter-options"] {
+  display: block;
+}
+
+.filter-options {
+  background-color: white;
+  width: 15rem;
+  --gap: 0.5rem;
+  right: 0;
+  list-style: none;
+  top: 3.5rem;
+  border-radius: 5px;
+  display: none;
+}
+
+[aria-expanded="false"] .filter-options.flex {
+  display: none;
+}
+
+[data-filter] input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+}
+
+[data-filter] > div {
+  flex-shrink: 0;
+}
+
+[data-filter] input[type="checkbox"] + svg path {
+  transition: stroke-dashoffset 800ms;
+}
+
+[data-filter] input[type="checkbox"]:checked + svg path {
+  stroke-dashoffset: 0;
 }
 
 .filter-section {

@@ -43,6 +43,6 @@
   transition: 100ms ease-in-out;
 }
 
-[aria-expanded="true"] svg {
+[aria-label="collapse-button"][aria-expanded="true"] svg {
   transform: rotate(180deg);
 }

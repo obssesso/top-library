@@ -14,6 +14,8 @@ export default function appFactory() {
       addBook: document.querySelector('[data-global-action="add"]'),
       wrapper: document.querySelector('[data-global="wrapper"]'),
       searchBar: document.querySelector('[data-app="search-book-in-list"]'),
+      filterButton: document.querySelector('[data-app="filter-button"]'),
+      filterSection: document.querySelector('[data-app="filter-options"]'),
     },
   };
 
@@ -74,6 +76,24 @@ export default function appFactory() {
             ).style.display = "none";
           }, delay);
         };
+      }
+
+      App.$.filterButton.addEventListener("click", openFilterSection);
+      App.$.filterButton.addEventListener("blur", closeFilterSection);
+
+      function closeFilterSection(event) {
+        App.$.filterSection.style.display = "none";
+        App.$.filterButton.setAttribute("aria-expanded", "false");
+      }
+
+      function openFilterSection(event) {
+        if (App.$.filterButton.getAttribute("aria-expanded") == "true") {
+          App.$.filterButton.setAttribute("aria-expanded", "false");
+          App.$.filterSection.style.display = "none";
+        } else {
+          App.$.filterButton.setAttribute("aria-expanded", "true");
+          App.$.filterSection.style.display = "block";
+        }
       }
     }
 
