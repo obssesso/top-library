@@ -6,6 +6,7 @@ export default async function bookModelFactory() {
   let db;
   let books;
   let searchFilter = "";
+  let readingStatusFilter = [];
   const bookStatus = enumFactory(["Read", "Want to Read", "Currently Reading"]);
 
   /* Why does this give "invalid invocator error on .addEventListener, whats the difference to constructor function?" */
@@ -21,6 +22,8 @@ export default async function bookModelFactory() {
   bookModel.getBookRating = _getBookRating;
   bookModel.deleteBook = _deleteBook;
   bookModel.updateSearch = _updateSearch;
+  bookModel.addReadingStatusFilter = _addReadingStatusFilter;
+  bookModel.deleteReadingStatusFilter = _deleteReadingStatusFilter;
 
   await initModel();
 
@@ -120,16 +123,20 @@ export default async function bookModelFactory() {
   async function _updateSearch(searchTerm) {
     searchFilter = searchTerm.trim();
     bookModel.dispatchEvent(new CustomEvent("update"));
-    /*     if (searchTerm == "") {
-      await getAllBooks();
-    } else {
-      const pattern = new RegExp(searchTerm, "i");
-      books = books.filter((book) => {
-        return pattern.test(book.title) || pattern.test(book.author);
-      });
-    }
-    update(); */
   }
+
+  async function _addReadingStatusFilter(readingStatusFilterTerm) {
+    readingStatusFilter.push(readingStatusFilterTerm);
+    bookModel.dispatchEvent(new CustomEvent("update"));
+  }
+
+  async function _deleteReadingStatusFilter(readingStatusFilterTerm) {
+    readingStatusFilter = readingStatusFilter.filter(
+      (filter) => filter != readingStatusFilterTerm
+    );
+    bookModel.dispatchEvent(new CustomEvent("update"));
+  }
+
   async function update() {
     const transaction = db.transaction("books", "readwrite");
     const store = transaction.objectStore("books");
@@ -150,11 +157,20 @@ export default async function bookModelFactory() {
   }
 
   function _getBooks() {
-    if (searchFilter == "") return books;
+    let booksToReturn = books;
 
-    const pattern = new RegExp(searchFilter, "i");
-    return books.filter((book) => {
-      return pattern.test(book.title) || pattern.test(book.author);
-    });
+    if (searchFilter != "") {
+      const pattern = new RegExp(searchFilter, "i");
+      booksToReturn = books.filter((book) => {
+        return pattern.test(book.title) || pattern.test(book.author);
+      });
+    }
+
+    if (readingStatusFilter.length != 0) {
+      booksToReturn = books.filter((book) => {
+        return readingStatusFilter.includes(book.status);
+      });
+    }
+    return booksToReturn;
   }
 }

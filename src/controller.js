@@ -107,9 +107,14 @@ export default function appFactory() {
         filter.addEventListener("click", onFilterClick.bind(filter))
       );
       function onFilterClick(event) {
-        //check if checked or unchecke
-        event.stopPropagation();
-        const filter = this.parentNode.querySelector("[data-filter-name]").textContent;
+        const filter =
+          this.parentNode.querySelector("[data-filter-name]").textContent;
+        if (event.target.checked) {
+          //check if checked or unchecke
+          bookModel.addReadingStatusFilter(filter);
+        } else {
+          bookModel.deleteReadingStatusFilter(filter);
+        }
       }
     }
 
