@@ -14,8 +14,10 @@ export default function appFactory() {
       addBook: document.querySelector('[data-global-action="add"]'),
       wrapper: document.querySelector('[data-global="wrapper"]'),
       searchBar: document.querySelector('[data-app="search-book-in-list"]'),
+      filterContainer: document.querySelector(".filter-container"),
       filterButton: document.querySelector('[data-app="filter-button"]'),
       filterSection: document.querySelector('[data-app="filter-options"]'),
+      filter: document.querySelectorAll("[data-filter] input[type='checkbox']"),
     },
   };
 
@@ -79,11 +81,16 @@ export default function appFactory() {
       }
 
       App.$.filterButton.addEventListener("click", openFilterSection);
-      App.$.filterButton.addEventListener("blur", closeFilterSection);
+      document.addEventListener("click", closeFilterSectionBlur);
 
-      function closeFilterSection(event) {
-        App.$.filterSection.style.display = "none";
-        App.$.filterButton.setAttribute("aria-expanded", "false");
+      function closeFilterSectionBlur(event) {
+        if (
+          !event.target.closest(".filter-container") &&
+          App.$.filterButton.getAttribute("aria-expanded") == "true"
+        ) {
+          App.$.filterSection.style.display = "none";
+          App.$.filterButton.setAttribute("aria-expanded", "false");
+        }
       }
 
       function openFilterSection(event) {
@@ -94,6 +101,15 @@ export default function appFactory() {
           App.$.filterButton.setAttribute("aria-expanded", "true");
           App.$.filterSection.style.display = "block";
         }
+      }
+
+      App.$.filter.forEach((filter) =>
+        filter.addEventListener("click", onFilterClick.bind(filter))
+      );
+      function onFilterClick(event) {
+        //check if checked or unchecke
+        event.stopPropagation();
+        const filter = this.parentNode.querySelector("[data-filter-name]").textContent;
       }
     }
 

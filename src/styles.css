@@ -398,9 +398,9 @@ button {
   color: hsl(var(--clr-main-accent));
 }
 
-[data-app="filter-button"]:focus-within [data-app="filter-options"] {
+/* .filter-container:focus-within [data-app="filter-options"] {
   display: block;
-}
+} */
 
 .filter-options {
   background-color: white;
