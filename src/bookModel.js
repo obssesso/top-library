@@ -167,7 +167,7 @@ export default async function bookModelFactory() {
     }
 
     if (readingStatusFilter.length != 0) {
-      booksToReturn = books.filter((book) => {
+      booksToReturn = booksToReturn.filter((book) => {
         return readingStatusFilter.includes(book.status);
       });
     }

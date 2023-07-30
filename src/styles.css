@@ -398,10 +398,6 @@ button {
   color: hsl(var(--clr-main-accent));
 }
 
-/* .filter-container:focus-within [data-app="filter-options"] {
-  display: block;
-} */
-
 .filter-options {
   background-color: white;
   width: 15rem;
@@ -434,14 +430,18 @@ button {
   stroke-dashoffset: 0;
 }
 
-.filter-section {
+.filter-cards {
   --gap: 0.4rem;
   color: #fff;
 }
 
-.filter-section > * {
+.filter-cards > * {
   background-color: hsl(var(--clr-main-accent));
   padding: 0.1rem 0.7rem;
   border-radius: 5px;
   --gap: 1rem;
+}
+
+.filter-cards button {
+  color: white;
 }

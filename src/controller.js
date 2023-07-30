@@ -13,11 +13,12 @@ export default function appFactory() {
       bookList: document.querySelector(".books"),
       addBook: document.querySelector('[data-global-action="add"]'),
       wrapper: document.querySelector('[data-global="wrapper"]'),
-      searchBar: document.querySelector('[data-app="search-book-in-list"]'),
+      searchBar: document.querySelector(".list-search__input"),
       filterContainer: document.querySelector(".filter-container"),
       filterButton: document.querySelector('[data-app="filter-button"]'),
       filterSection: document.querySelector('[data-app="filter-options"]'),
       filter: document.querySelectorAll("[data-filter] input[type='checkbox']"),
+      filterCards: document.querySelector(".filter-cards"),
     },
   };
 
@@ -107,15 +108,57 @@ export default function appFactory() {
         filter.addEventListener("click", onFilterClick.bind(filter))
       );
       function onFilterClick(event) {
-        const filter =
+        const filterTerm =
           this.parentNode.querySelector("[data-filter-name]").textContent;
         if (event.target.checked) {
-          //check if checked or unchecke
-          bookModel.addReadingStatusFilter(filter);
+          bookModel.addReadingStatusFilter(filterTerm);
+          addFilterCard(filterTerm);
         } else {
-          bookModel.deleteReadingStatusFilter(filter);
+          bookModel.deleteReadingStatusFilter(filterTerm);
+          removeFilterCard(filterTerm);
+        }
+
+        function addFilterCard() {
+          App.$.filterCards.append(returnFilterCardNode());
+        }
+        function removeFilterCard() {
+          document
+            .querySelector(`[reading-status-filter="${filterTerm}"]`)
+            .remove();
+        }
+
+        function returnFilterCardNode() {
+          const filterCard = document.createElement("div");
+          filterCard.setAttribute("reading-status-filter", `${filterTerm}`);
+          filterCard.classList.add(
+            "flex",
+            "ai-items-center",
+            "jc-center",
+            "fs-filter-card"
+          );
+          const Bbutton = document.createElement("button");
+          Bbutton.textContent = `${filterTerm}        x`;
+          filterCard.append(Bbutton);
+          return filterCard;
         }
       }
+
+      App.$.filterCards.addEventListener("click", function (event) {
+        if (event.target.closest("[reading-status-filter]")) {
+          const filterCard = event.target.closest("[reading-status-filter]");
+          const filterTerm = `${filterCard.getAttribute(
+            "reading-status-filter"
+          )}`;
+          this.querySelector(`[reading-status-filter="${filterTerm}"]`).remove();
+          const filterOption = App.$.filterSection.querySelector(
+            `[data-filter="${filterCard.getAttribute(
+              "reading-status-filter"
+            )}"] input`
+          );
+          filterOption.checked = false;
+          bookModel.deleteReadingStatusFilter(filterTerm);
+        }
+      });
     }
 
     function initBookStorageEvents() {
