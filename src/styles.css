@@ -306,6 +306,14 @@ svg {
   position: absolute;
 }
 
+.pos-fixed {
+  position: fixed;
+}
+
+.pos-sticky {
+  position: sticky;
+}
+
 .inset0 {
   inset: 0;
 }
@@ -409,6 +417,9 @@ button {
   display: none;
 }
 
+.filter-options label {
+  cursor: pointer;
+}
 [aria-expanded="false"] .filter-options.flex {
   display: none;
 }

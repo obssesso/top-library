@@ -25,6 +25,7 @@ export default function bookCardFactory() {
     const bookCard = document.createElement("li");
     bookCard.classList.add(
       "book",
+      "pos-rel",
       "flex",
       "ai-start",
       "pb-bottom-700",

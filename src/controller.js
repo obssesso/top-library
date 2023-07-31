@@ -53,7 +53,8 @@ export default function appFactory() {
           { title: "", author: "", status: "", rating: "" },
           "Add a new book to your list",
           "Add book",
-          "add"
+          "add",
+          App.$.wrapper
         )
       );
 
@@ -149,7 +150,9 @@ export default function appFactory() {
           const filterTerm = `${filterCard.getAttribute(
             "reading-status-filter"
           )}`;
-          this.querySelector(`[reading-status-filter="${filterTerm}"]`).remove();
+          this.querySelector(
+            `[reading-status-filter="${filterTerm}"]`
+          ).remove();
           const filterOption = App.$.filterSection.querySelector(
             `[data-filter="${filterCard.getAttribute(
               "reading-status-filter"
@@ -199,7 +202,8 @@ export default function appFactory() {
           },
           "Edit this book",
           "Confirm Edit",
-          "edit"
+          "edit",
+          bookListItem
         );
       });
 
@@ -229,7 +233,13 @@ export default function appFactory() {
       }
     }
 
-    function createBookModalView(book, formHeader, buttonText, mode) {
+    function createBookModalView(
+      book,
+      formHeader,
+      buttonText,
+      mode,
+      nodeToAppendTo
+    ) {
       addBookModalComponent = addBookModalComponentFactory(
         book,
         formHeader,
@@ -243,8 +253,9 @@ export default function appFactory() {
 
       /* create the Modal view */
       const formWrapper = addBookModalComponent.createBookModalDOMNode();
-      const firstChild = App.$.wrapper.firstChild;
-      App.$.wrapper.insertBefore(formWrapper, firstChild);
+      const firstChild = nodeToAppendTo.firstChild;
+      nodeToAppendTo.insertBefore(formWrapper, firstChild);
+      /*       App.$.wrapper.insertBefore(formWrapper, firstChild); */
     }
   }
 }

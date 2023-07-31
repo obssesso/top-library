@@ -23,10 +23,21 @@
   width: 100%;
 }
 
+.add-book-form .rating{
+  margin-bottom: .5rem;
+}
+
 .add-book-form__add-button {
-  justify-self: end;
+/*   justify-self: end; */
   background-color: hsl(var(--clr-secondary-accent));
   color: hsl(var(--clr-main-accent));
+  padding: 0.2rem 1rem;
+}
+
+@media (min-width: 30em) {
+  .add-book-form__add-button {
+    justify-self: end;
+  }
 }
 
 .add-book-form__close-button {

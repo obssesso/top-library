@@ -37,10 +37,10 @@ export default function addBookModalComponentFactory(
 
     formWrapper.classList.add(
       "form-wrapper",
-      "pos-abs",
       "inset0",
       "grid",
-      "pi-center"
+      "pi-center",
+      "pos-fixed"
     );
 
     formWrapper.insertAdjacentHTML("afterbegin", returnBookModalHTML());
@@ -65,8 +65,8 @@ export default function addBookModalComponentFactory(
 
     formWrapper
       .querySelector(".book-status")
-      .addEventListener("click", () =>
-        readingStatusComponent.onDropDownFocus(formWrapper)
+      .addEventListener("click", (event) =>
+        readingStatusComponent.onDropDownFocus(formWrapper,event)
       );
 
     readingStatusComponent.initEventListeners(formWrapper);
@@ -123,6 +123,7 @@ export default function addBookModalComponentFactory(
   }
 
   function changeRating(event) {
+    event.stopPropagation();
     if (currentRating == event.target.dataset.starNumber) {
       currentRating = 0;
     } else {
@@ -153,7 +154,7 @@ export default function addBookModalComponentFactory(
                     <p>Status</p>
                 ${readingStatusComponent.returnReadingStatusHTML(book.status)}
                 </label>
-                <label>
+                <label class="rating">
                     <p>Rating</p>
                     <div data-book="rating" class="flex rating jc-start">
                     ${ratingStarsComponent.returnRatingStarsHTML(5)}

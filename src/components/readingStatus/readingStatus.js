@@ -11,11 +11,13 @@ export default function readingStatusComponentFactory() {
     containerObject
       .querySelector("[data-book='status-options']")
       .addEventListener("mousedown", (event) => {
+        event.stopPropagation();
         onStatusChoice(containerObject, event.target);
       });
   }
 
-  function _onDropDownFocus(parentNode) {
+  function _onDropDownFocus(parentNode, event) {
+    event.stopPropagation();
     if (
       parentNode
         .querySelector("[aria-expanded]")
@@ -32,6 +34,7 @@ export default function readingStatusComponentFactory() {
   }
 
   function _onDropDownBlur(event, parentNode) {
+    event.stopPropagation();
     if (event.target.matches('[data-book="status-option"]')) {
       parentNode.querySelector('[data-book="status-option"]').textContent =
         event.target.textContent;
