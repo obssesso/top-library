@@ -11,3 +11,4 @@
 
 - Vanilla MVC tricks: https://frontendmasters.com/blog/vanilla-javascript-todomvc/
 - SVG pointer-events-behaviour: https://www.smashingmagazine.com/2018/05/svg-interaction-pointer-events-property/
+- Event debouncing for search function, when interacting with Database
