@@ -14,33 +14,7 @@
 
 
     <div data-global="wrapper" class="wrapper pos-rel">
-        <!--         <div class="pos-abs inset0 grid pi-center form-wrapper">
-            <form class="pos-rel" action="">
-                <button class="close-modal pos-abs clr-white" style="right: 0; top:0;">X</button>
-                <h2 class="clr-white mrgn-bottom-700">Add a new book to your list</h2>
-                <label>
-                    <p>Book Title</p>
-                    <input type="text">
-                </label>
-                <label>
-                    <p>Author</p>
-                    <input type="text">
-                </label>
-                <label>
-                    <p>Status</p>
-                    <input type="text">
-                </label>
-                <label>
-                    <p>Rating</p>
-                    <input type="text">
-                </label>
-                <p style="justify-self: end; padding-top: 1rem;"><button>Add to list</button></p>
-            </form>
-        </div>
-
- -->
         <header class="grid pi-center mrgn-bottom-800">
-            <!--             <h1 class="ff-accent ta-center fs-h1 pb-bottom-500">My Book List</h1> -->
             <h1 class="svg-h1 pb-bottom-500">
                 <svg width="100px" height="100px" viewBox="0 -0.46 321.395 321.395" xmlns="http://www.w3.org/2000/svg">
                     <defs>
@@ -198,33 +172,80 @@
                 </svg>
             </h1>
 
-            <div class="list-search flex mrgn-bottom-400">
-                <svg xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960" width="48">
-                    <path
-                        d="M796-121 533-384q-30 26-69.959 40.5T378-329q-108.162 0-183.081-75Q120-479 120-585t75-181q75-75 181.5-75t181 75Q632-691 632-584.85 632-542 618-502q-14 40-42 75l264 262-44 44ZM377-389q81.25 0 138.125-57.5T572-585q0-81-56.875-138.5T377-781q-82.083 0-139.542 57.5Q180-666 180-585t57.458 138.5Q294.917-389 377-389Z" />
-                </svg>
-                <input class="list-search-input flex" type="text" placeholder="Search in your list...">
+            <div data-app="search-book-in-list" class="list-search flex mrgn-bottom-400 pos-rel">
+                <input class="list-search__input flex" type="text" placeholder="Search in your list...">
 
-                <svg xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960" width="48">
-                    <path
-                        d="M440-160q-17 0-28.5-11.5T400-200v-240L161-745q-14-17-4-36t31-19h584q21 0 31 19t-4 36L560-440v240q0 17-11.5 28.5T520-160h-80Zm40-276 240-304H240l240 304Zm0 0Z" />
-                </svg>
+                <div class="list-search__icon-group flex ai-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960" width="48">
+                        <path
+                            d="M796-121 533-384q-30 26-69.959 40.5T378-329q-108.162 0-183.081-75Q120-479 120-585t75-181q75-75 181.5-75t181 75Q632-691 632-584.85 632-542 618-502q-14 40-42 75l264 262-44 44ZM377-389q81.25 0 138.125-57.5T572-585q0-81-56.875-138.5T377-781q-82.083 0-139.542 57.5Q180-666 180-585t57.458 138.5Q294.917-389 377-389Z" />
+                    </svg>
+                    <div data-app="search-in-list-loader" class="list-search__icon-group__loader"></div>
+                    <div class="filter-container">
+                        <button class="filter-button pos-rel" data-app="filter-button" aria-expanded="false">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960" width="48">
+                                <path
+                                    d="M440-160q-17 0-28.5-11.5T400-200v-240L161-745q-14-17-4-36t31-19h584q21 0 31 19t-4 36L560-440v240q0 17-11.5 28.5T520-160h-80Zm40-276 240-304H240l240 304Zm0 0Z" />
+                            </svg>
+                        </button>
+                        <ul data-app="filter-options" class="filter-options pos-abs flex flex-column">
+                            <label data-filter="Read" class="flex ai-center">
+                                <div class="flex ai-center jc-sb">
+                                    <input type="checkbox" id="read" name="read">
+                                    <svg width="16" height="15" viewBox="0 0 16 15" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <rect width="15" height="15" fill="#6B705C" />
+                                        <path
+                                            d="M0.5 4.5L4.5 0.5L0.5 8.5L10.5 0.5L0.5 14L14 0.5L5.5 14L14 6L10.5 14L15 10.5"
+                                            stroke="#FFD970" stroke-dashoffset="106" stroke-dasharray="106" />
+                                    </svg>
+                                    <span data-filter-name>Read</span>
+                                </div>
+                            </label>
+                            <label data-filter="Currently Reading" class="flex ai-center">
+                                <div class="flex ai-center jc-sb">
+                                    <input type="checkbox" id="curently-reading" name="curently-reading">
+                                    <svg width="16" height="15" viewBox="0 0 16 15" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <rect width="15" height="15" fill="#6B705C" />
+                                        <path
+                                            d="M0.5 4.5L4.5 0.5L0.5 8.5L10.5 0.5L0.5 14L14 0.5L5.5 14L14 6L10.5 14L15 10.5"
+                                            stroke="#FFD970" stroke-dashoffset="106" stroke-dasharray="106" />
+                                    </svg>
+                                    <span data-filter-name>Currently Reading</span>
+                                </div>
+                            </label>
+                            <label data-filter="Want to Read" class="flex ai-center">
+                                <div class="flex ai-center jc-sb">
+                                    <input type="checkbox" id="want-to-read" name="want-to-read">
+                                    <svg width="16" height="15" viewBox="0 0 16 15" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <rect width="15" height="15" fill="#6B705C" />
+                                        <path
+                                            d="M0.5 4.5L4.5 0.5L0.5 8.5L10.5 0.5L0.5 14L14 0.5L5.5 14L14 6L10.5 14L15 10.5"
+                                            stroke="#FFD970" stroke-dashoffset="106" stroke-dasharray="106" />
+                                    </svg>
+                                    <span data-filter-name>Want to Read</span>
+                                </div>
+                            </label>
+                        </ul>
+                    </div>
+                </div>
             </div>
 
-            <div class="flex filter-section">
-                <div class="flex ai-items-center jc-center fs-filter-card"><span>Read</span><span>x</span></div>
-                <div class="flex fs-filter-card"><span>Currently Reading</span><span>x</span></div>
-                <div class="flex fs-filter-card"><span>Want to Read</span><span>x</span></div>
+            <div class="flex filter-cards">
             </div>
 
         </header>
 
         <main class="grid">
-            <svg data-global-action="add" class="as-center js-center mrgn-bottom-800" xmlns="http://www.w3.org/2000/svg"
-                height="48" viewBox="0 -960 960 960" width="48">
-                <path
-                    d="M453-280h60v-166h167v-60H513v-174h-60v174H280v60h173v166Zm27.266 200q-82.734 0-155.5-31.5t-127.266-86q-54.5-54.5-86-127.341Q80-397.681 80-480.5q0-82.819 31.5-155.659Q143-709 197.5-763t127.341-85.5Q397.681-880 480.5-880q82.819 0 155.659 31.5Q709-817 763-763t85.5 127Q880-563 880-480.266q0 82.734-31.5 155.5T763-197.684q-54 54.316-127 86Q563-80 480.266-80Zm.234-60Q622-140 721-239.5t99-241Q820-622 721.188-721 622.375-820 480-820q-141 0-240.5 98.812Q140-622.375 140-480q0 141 99.5 240.5t241 99.5Zm-.5-340Z" />
-            </svg>
+            <button aria-label="Add book to list" class="add-book-button flex jc-center ai-center">
+                <svg data-global-action="add" class="flex ai-center js-center mrgn-bottom-800 cursor-pointer"
+                    xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960" width="48">
+                    <path
+                        d="M453-280h60v-166h167v-60H513v-174h-60v174H280v60h173v166Zm27.266 200q-82.734 0-155.5-31.5t-127.266-86q-54.5-54.5-86-127.341Q80-397.681 80-480.5q0-82.819 31.5-155.659Q143-709 197.5-763t127.341-85.5Q397.681-880 480.5-880q82.819 0 155.659 31.5Q709-817 763-763t85.5 127Q880-563 880-480.266q0 82.734-31.5 155.5T763-197.684q-54 54.316-127 86Q563-80 480.266-80Zm.234-60Q622-140 721-239.5t99-241Q820-622 721.188-721 622.375-820 480-820q-141 0-240.5 98.812Q140-622.375 140-480q0 141 99.5 240.5t241 99.5Zm-.5-340Z" />
+                </svg>
+            </button>
 
             <ul class="books">
             </ul>
